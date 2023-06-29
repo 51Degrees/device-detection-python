@@ -1,0 +1,6 @@
+var classdevice_detection_python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__38aa77c3c7c357b5b11396c5541a6614 =
+[
+    [ "EVIDENCE_NATIVE_MODEL_SUFFIX", "classdevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__38aa77c3c7c357b5b11396c5541a6614.html#a488b23b227d4b1f4a0eea679a3196871", null ],
+    [ "EVIDENCE_QUERY_TAC_KEY", "classdevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__38aa77c3c7c357b5b11396c5541a6614.html#a0edf2a2737f3e393271383104839270d", null ],
+    [ "EVIDENCE_TAC_SUFFIX", "classdevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__38aa77c3c7c357b5b11396c5541a6614.html#a19ea86855db526efc61a54130d3ccffd", null ]
+];

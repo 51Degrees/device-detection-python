@@ -1,0 +1,20 @@
+var examples =
+[
+    [ "cloud/failuretomatch.py", "cloud_2failuretomatch_8py-example.html", null ],
+    [ "cloud/gettingstarted.py", "cloud_2gettingstarted_8py-example.html", null ],
+    [ "cloud/gettingstarted_console.py", "cloud_2gettingstarted_console_8py-example.html", null ],
+    [ "cloud/gettingstarted_web/app.py", "cloud_2gettingstarted_web_2app_8py-example.html", null ],
+    [ "cloud/metadata_console.py", "cloud_2metadata_console_8py-example.html", null ],
+    [ "cloud/nativemodellookup_console.py", "cloud_2nativemodellookup_console_8py-example.html", null ],
+    [ "cloud/taclookup_console.py", "cloud_2taclookup_console_8py-example.html", null ],
+    [ "cloud/useragentclienthints-web.py", "cloud_2useragentclienthints-web_8py-example.html", null ],
+    [ "onpremise/datafileupdate_console.py", "onpremise_2datafileupdate_console_8py-example.html", null ],
+    [ "onpremise/failuretomatch.py", "onpremise_2failuretomatch_8py-example.html", null ],
+    [ "onpremise/gettingstarted_console.py", "onpremise_2gettingstarted_console_8py-example.html", null ],
+    [ "onpremise/gettingstarted_web/app.py", "onpremise_2gettingstarted_web_2app_8py-example.html", null ],
+    [ "onpremise/match_metrics.py", "onpremise_2match_metrics_8py-example.html", null ],
+    [ "onpremise/metadata_console.py", "onpremise_2metadata_console_8py-example.html", null ],
+    [ "onpremise/offlineprocessing.py", "onpremise_2offlineprocessing_8py-example.html", null ],
+    [ "onpremise/performance.py", "onpremise_2performance_8py-example.html", null ],
+    [ "onpremise/useragentclienthints-web.py", "onpremise_2useragentclienthints-web_8py-example.html", null ]
+];

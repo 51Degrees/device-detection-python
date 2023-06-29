@@ -1,0 +1,4 @@
+var classdevice_detection_python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectiobd5acefc6b872e733b8bb93f5a6b9402 =
+[
+    [ "__init__", "classdevice-detection-python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectiobd5acefc6b872e733b8bb93f5a6b9402.html#aabd99c579edd0d46def2c904a26357de", null ]
+];

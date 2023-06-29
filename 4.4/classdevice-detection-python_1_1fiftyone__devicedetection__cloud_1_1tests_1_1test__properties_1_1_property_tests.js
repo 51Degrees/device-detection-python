@@ -1,0 +1,5 @@
+var classdevice_detection_python_1_1fiftyone__devicedetection__cloud_1_1tests_1_1test__properties_1_1_property_tests =
+[
+    [ "test_available_properties", "classdevice-detection-python_1_1fiftyone__devicedetection__cloud_1_1tests_1_1test__properties_1_1_property_tests.html#ab2b159d436ba1675fc67d6c3d01bf74f", null ],
+    [ "test_value_types", "classdevice-detection-python_1_1fiftyone__devicedetection__cloud_1_1tests_1_1test__properties_1_1_property_tests.html#aa8846b7bc426ebf914d2680b3cae10e5", null ]
+];

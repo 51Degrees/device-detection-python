@@ -1,0 +1,6 @@
+var classdevice_detection_python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectioe84cdd6af4e68b626eb76cda0cb26a99 =
+[
+    [ "__init__", "classdevice-detection-python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectioe84cdd6af4e68b626eb76cda0cb26a99.html#af6956e1fe2d77f329f23465aa968fb8a", null ],
+    [ "getProfileId", "classdevice-detection-python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectioe84cdd6af4e68b626eb76cda0cb26a99.html#aca1a4697e9d284c3cfcdbcb8b44772a5", null ],
+    [ "thisown", "classdevice-detection-python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectioe84cdd6af4e68b626eb76cda0cb26a99.html#a05080f02054b3c769c3841b1f0ebd6eb", null ]
+];
