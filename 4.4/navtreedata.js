@@ -44,8 +44,8 @@ var NAVTREEHIDESYNC = true;
 var NAVTREEINDEX =
 [
 "../../documentation/4.4/index.html",
-"classdevice-detection-python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectio5041592cadcb50fc82c19c2c71723de3.html#a3f1937624e6f6034aa1b371d7c848829",
-"classdevice-detection-python_1_1fiftyone__devicedetection__onpremise_1_1tests_1_1test__devicedet161f3c0affc811f6d8a64c75412b2a35.html#a0cc5847fd555042be963a8fe23d8e785"
+"classfiftyone__devicedetection__onpremise_1_1_device_detection_hash_engine_module_1_1_map_string_string_swig.html#aa876d71b8b091d55144d43a85b4b1dd1",
+"classtests_1_1test__cloud_1_1_device_detection_tests.html#a3cbf744dbbb00599a1d67b368313a0f5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

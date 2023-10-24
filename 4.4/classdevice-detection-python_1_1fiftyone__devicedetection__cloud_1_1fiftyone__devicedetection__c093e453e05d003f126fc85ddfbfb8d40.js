@@ -1,4 +1,0 @@
-var classdevice_detection_python_1_1fiftyone__devicedetection__cloud_1_1fiftyone__devicedetection__c093e453e05d003f126fc85ddfbfb8d40 =
-[
-    [ "__init__", "classdevice-detection-python_1_1fiftyone__devicedetection__cloud_1_1fiftyone__devicedetection__c093e453e05d003f126fc85ddfbfb8d40.html#ac11cbc898c38b4a50d5b95a7fea36c41", null ]
-];

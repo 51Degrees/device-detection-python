@@ -1,6 +1,0 @@
-var classdevice_detection_python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectio723047c3815f13201aafe65045f50614 =
-[
-    [ "__init__", "classdevice-detection-python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectio723047c3815f13201aafe65045f50614.html#a2c6b9ddf22c0d4324f077151df5d512e", null ],
-    [ "getProperties", "classdevice-detection-python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectio723047c3815f13201aafe65045f50614.html#a7350c73eea7166b555134ce29734c333", null ],
-    [ "thisown", "classdevice-detection-python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectio723047c3815f13201aafe65045f50614.html#ab9320229d003ba743d5005856ef8b509", null ]
-];

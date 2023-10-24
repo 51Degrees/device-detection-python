@@ -1,4 +1,0 @@
-var classdevice_detection_python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectiof5e3cc2666c9887a68cd4f0bf604bb0d =
-[
-    [ "check", "classdevice-detection-python_1_1fiftyone__devicedetection__onpremise_1_1fiftyone__devicedetectiof5e3cc2666c9887a68cd4f0bf604bb0d.html#a230d7f93620b048a67c79286660d1a59", null ]
-];

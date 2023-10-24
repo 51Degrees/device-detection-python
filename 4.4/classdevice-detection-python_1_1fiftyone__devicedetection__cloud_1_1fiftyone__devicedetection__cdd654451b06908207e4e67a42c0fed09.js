@@ -1,5 +1,0 @@
-var classdevice_detection_python_1_1fiftyone__devicedetection__cloud_1_1fiftyone__devicedetection__cdd654451b06908207e4e67a42c0fed09 =
-[
-    [ "__init__", "classdevice-detection-python_1_1fiftyone__devicedetection__cloud_1_1fiftyone__devicedetection__cdd654451b06908207e4e67a42c0fed09.html#a3042094eaa2b8f9c889a560091f6aedc", null ],
-    [ "datakey", "classdevice-detection-python_1_1fiftyone__devicedetection__cloud_1_1fiftyone__devicedetection__cdd654451b06908207e4e67a42c0fed09.html#ae74476ff79794d29ca877a1753ac65f7", null ]
-];
