@@ -38,8 +38,8 @@ var NAVTREEINDEX2 =
 "classtests_1_1test__properties_1_1_property_tests.html#a21763f90e8a865eb6623cbae67659536":[10,15,6,0,2],
 "classtests_1_1test__properties_1_1_property_tests.html#a4bc4e260dd1a2ee1d40ddbfdc5feed9e":[10,15,6,0,1],
 "classtests_1_1test__properties_1_1_property_tests.html#a4bc4e260dd1a2ee1d40ddbfdc5feed9e":[10,15,6,0,0],
-"classtests_1_1test__properties_1_1_property_tests.html#a9c306002b4356c47ad3f84fc3b90d8d4":[10,15,6,0,4],
 "classtests_1_1test__properties_1_1_property_tests.html#a9c306002b4356c47ad3f84fc3b90d8d4":[10,15,6,0,3],
+"classtests_1_1test__properties_1_1_property_tests.html#a9c306002b4356c47ad3f84fc3b90d8d4":[10,15,6,0,4],
 "classtests_1_1test__swig_1_1_swig_tests.html":[10,15,7,0],
 "classtests_1_1test__swig_1_1_swig_tests.html#a3710bcc2c2967ccbd29a013de1d504ce":[10,15,7,0,4],
 "classtests_1_1test__swig_1_1_swig_tests.html#a4fdb472b02af3b7826e952a552c1699d":[10,15,7,0,5],
@@ -123,5 +123,6 @@ var NAVTREEINDEX2 =
 "onpremise_2gettingstarted_web_2app_8py-example.html":[11,4],
 "onpremise_2match_metrics_8py-example.html":[11,5],
 "onpremise_2metadata_console_8py-example.html":[11,6],
-"onpremise_2offlineprocessing_8py-example.html":[11,7]
+"onpremise_2offlineprocessing_8py-example.html":[11,7],
+"onpremise_2performance_8py-example.html":[11,8]
 };
