@@ -25,9 +25,6 @@ $downloads = @{
         }
         ./steps/fetch-hash-assets.ps1 -RepoName $RepoName -LicenseKey $DeviceDetection -Url $DeviceDetectionUrl
         Move-Item -Path $RepoName/$file -Destination $assets
-        # Tests mutate this file, so we copy it
-        Write-Output "Copying '$file' to '$deviceDetectionData/Enterprise-HashV41.hash'"
-        Copy-Item -Path $assets/$file -Destination $deviceDetectionData/Enterprise-HashV41.hash
     }
     "51Degrees-LiteV4.1.hash" = {Invoke-WebRequest -Uri "https://github.com/51Degrees/device-detection-data/raw/main/51Degrees-LiteV4.1.hash" -OutFile $assets/$file}
     "20000 Evidence Records.yml" = {Invoke-WebRequest -Uri "https://media.githubusercontent.com/media/51Degrees/device-detection-data/main/20000%20Evidence%20Records.yml" -OutFile $assets/$file}
@@ -40,8 +37,6 @@ $downloads = @{
         ./steps/fetch-csv-assets.ps1 -RepoName $RepoName -LicenseKey $DeviceDetection -Url $CsvUrl
         Get-Content -TotalCount 1 $RepoName/51Degrees-Tac/51Degrees-Tac-All.csv | Out-File $assets/$file # We only need a header
         Remove-Item -Path $RepoName/51Degrees-Tac.zip, $RepoName/51Degrees-Tac/51Degrees-Tac-All.csv
-        # Symlink the file
-        New-Item -ItemType SymbolicLink -Force -Target "$assets/$file" -Path "$RepoName/fiftyone_devicedetection_cloud/tests/51Degrees.csv"
     }
 }
 
@@ -52,6 +47,15 @@ foreach ($file in $downloads.Keys) {
     } else {
         Write-Output "'$file' exists, skipping download"
     }
+}
+
+if ($DeviceDetection) {
+    # Tests mutate this file, so we copy it
+    Write-Output "Copying 'TAC-HashV41.hash' to '$deviceDetectionData/Enterprise-HashV41.hash'"
+    Copy-Item -Path $assets/TAC-HashV41.hash -Destination $deviceDetectionData/Enterprise-HashV41.hash
+
+    # Symlink the file
+    New-Item -ItemType SymbolicLink -Force -Target $assets/51Degrees.csv -Path "$RepoName/fiftyone_devicedetection_cloud/tests/51Degrees.csv"
 }
 
 # We can just symlink these
