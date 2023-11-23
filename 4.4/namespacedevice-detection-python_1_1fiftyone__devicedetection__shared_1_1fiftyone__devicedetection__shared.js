@@ -1,5 +1,0 @@
-var namespacedevice_detection_python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__shared =
-[
-    [ "constants", "namespacedevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__shared_1_1constants.html", "namespacedevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__shared_1_1constants" ],
-    [ "key_utils", "namespacedevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__shared_1_1key__utils.html", "namespacedevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__shared_1_1key__utils" ]
-];

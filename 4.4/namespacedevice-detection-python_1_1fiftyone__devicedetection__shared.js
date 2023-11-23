@@ -1,4 +1,0 @@
-var namespacedevice_detection_python_1_1fiftyone__devicedetection__shared =
-[
-    [ "fiftyone_devicedetection_shared", "namespacedevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__shared.html", "namespacedevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__shared" ]
-];

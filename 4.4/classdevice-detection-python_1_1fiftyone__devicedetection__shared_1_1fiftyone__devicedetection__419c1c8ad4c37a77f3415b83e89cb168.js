@@ -1,5 +1,0 @@
-var classdevice_detection_python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__419c1c8ad4c37a77f3415b83e89cb168 =
-[
-    [ "get_named_key", "classdevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__419c1c8ad4c37a77f3415b83e89cb168.html#a66507a7522c505bdff430c599d5f8e79", null ],
-    [ "is_invalid_key", "classdevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__419c1c8ad4c37a77f3415b83e89cb168.html#a5895702f0b02c6c596f495924a9b47fc", null ]
-];

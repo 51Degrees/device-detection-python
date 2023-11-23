@@ -85,10 +85,10 @@ $(document).ready(function(){initNavTree('md__home_runner_work_device-detection-
 <p>You will require a <a href="https://51degrees.com/documentation/_info__resource_keys.html">resource key</a> to use the Cloud API. You can create resource keys using our <a href="https://configure.51degrees.com/">configurator</a>, see our <a href="https://51degrees.com/documentation/_concepts__configurator.html">documentation</a> on how to use this.</p>
 <h4>On-Premise</h4>
 <p>In order to perform device detection on-premise, you will need to use a 51Degrees data file. This repository includes a free, 'lite' file in the 'device-detection-data' sub-module that has a significantly reduced set of properties. To obtain a file with a more complete set of device properties see the <a href="https://51degrees.com/pricing">51Degrees website</a>. If you want to use the lite file, you will need to install <a href="https://git-lfs.github.com/">GitLFS</a>:</p>
-<div class="c-code__block c-code__block--outline"><div class="c-code__line">sudo apt-get install git-lfs</div><div class="c-code__line">git lfs install</div></div><p>Then, navigate to 'fiftyone.devicedetection.onpremise/cxx/device-detection-data' and execute:</p>
+<div class="c-code__block c-code__block--outline"><div class="c-code__line">sudo apt-get install git-lfs</div><div class="c-code__line">git lfs install</div></div><p>Then, navigate to 'src/fiftyone_devicedetection_onpremise/cxx/device-detection-data' and execute:</p>
 <div class="c-code__block c-code__block--outline"><div class="c-code__line">git lfs pull</div></div><h2>Folders</h2>
 <ul>
-<li><code>fiftyone_devicedetection</code> - references both cloud and on-premise packages, contains generic Device-Detection Pipeline Builder.<ul>
+<li><code><a class="el" href="namespacefiftyone__devicedetection.html">fiftyone_devicedetection</a></code> - references both cloud and on-premise packages, contains generic Device-Detection Pipeline Builder.<ul>
 <li><code>examples</code> - examples for switching between cloud and on-premise.</li>
 </ul>
 </li>
@@ -100,8 +100,8 @@ $(document).ready(function(){initNavTree('md__home_runner_work_device-detection-
 <li><code>tests</code> - tests for the on-premise engine.</li>
 </ul>
 </li>
-<li><code>fiftyone_devicedetection_shared</code> - common components used by the cloud and on-premise packages.</li>
-<li><code>fiftyone_devicedetection_examples</code> - cloud and on-premise examples.<ul>
+<li><code><a class="el" href="namespacefiftyone__devicedetection__shared.html">fiftyone_devicedetection_shared</a></code> - common components used by the cloud and on-premise packages.</li>
+<li><code><a class="el" href="namespacefiftyone__devicedetection__examples.html">fiftyone_devicedetection_examples</a></code> - cloud and on-premise examples.<ul>
 <li><code>tests</code> - tests for the examples.</li>
 </ul>
 </li>
@@ -155,7 +155,7 @@ $(document).ready(function(){initNavTree('md__home_runner_work_device-detection-
 <tr class="c-table__row--heading">
 <td class="c-table__cell">Example  </td><td class="c-table__cell">Description   </td></tr>
 <tr class="c-table__row">
-<td class="c-table__cell"><a class="el" href="namespacegettingstarted__console.html">gettingstarted_console</a>  </td><td class="c-table__cell">How to use the 51Degrees Cloud service to determine details about a device based on its User-Agent and User-Agent Client Hints HTTP header values.   </td></tr>
+<td class="c-table__cell">gettingstarted_console  </td><td class="c-table__cell">How to use the 51Degrees Cloud service to determine details about a device based on its User-Agent and User-Agent Client Hints HTTP header values.   </td></tr>
 <tr class="c-table__row">
 <td class="c-table__cell">gettingstarted_web  </td><td class="c-table__cell">How to use the 51Degrees Cloud service to determine details about a device as part of a simple ASP.NET website.   </td></tr>
 <tr class="c-table__row">
@@ -174,13 +174,13 @@ $(document).ready(function(){initNavTree('md__home_runner_work_device-detection-
 <tr class="c-table__row--heading">
 <td class="c-table__cell">Example  </td><td class="c-table__cell">Description   </td></tr>
 <tr class="c-table__row">
-<td class="c-table__cell"><a class="el" href="namespacegettingstarted__console.html">gettingstarted_console</a>  </td><td class="c-table__cell">How to use the 51Degrees on-premise device detection API to determine details about a device based on its User-Agent and User-Agent Client Hints HTTP header values.   </td></tr>
+<td class="c-table__cell">gettingstarted_console  </td><td class="c-table__cell">How to use the 51Degrees on-premise device detection API to determine details about a device based on its User-Agent and User-Agent Client Hints HTTP header values.   </td></tr>
 <tr class="c-table__row">
 <td class="c-table__cell">gettingstarted_web  </td><td class="c-table__cell">How to use the 51Degrees Cloud service to determine details about a device as part of a simple ASP.NET website.   </td></tr>
 <tr class="c-table__row">
 <td class="c-table__cell">failuretomatch  </td><td class="c-table__cell">Demonstrate the features that are available when a match cannot be found.   </td></tr>
 <tr class="c-table__row">
-<td class="c-table__cell"><a class="el" href="namespacematch__metrics.html">match_metrics</a>  </td><td class="c-table__cell">How to access the metrics that relate to the device detection algorithm.   </td></tr>
+<td class="c-table__cell">match_metrics  </td><td class="c-table__cell">How to access the metrics that relate to the device detection algorithm.   </td></tr>
 <tr class="c-table__row">
 <td class="c-table__cell">metadata  </td><td class="c-table__cell">How to access the meta-data for the device detection data model. For example, information about the available properties.   </td></tr>
 <tr class="c-table__row">

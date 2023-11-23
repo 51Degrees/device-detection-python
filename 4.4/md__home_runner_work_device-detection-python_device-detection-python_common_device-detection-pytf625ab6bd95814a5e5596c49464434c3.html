@@ -85,7 +85,7 @@ $(document).ready(function(){initNavTree('md__home_runner_work_device-detection-
 <div class="c-code__block c-code__block--outline"><div class="c-code__line">from fiftyone_devicedetection_cloud.devicedetection_cloud_pipelinebuilder import DeviceDetectionCloudPipelineBuilder</div><div class="c-code__line">pipeline = DeviceDetectionCloudPipelineBuilder({&quot;resource_key&quot;: &quot;YOUR_RESOURCE_KEY&quot;}).build()</div><div class="c-code__line">fd = pipeline.create_flowdata()</div><div class="c-code__line">fd.evidence.add(&quot;header.user-agent&quot;, &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148&quot;)</div><div class="c-code__line">fd.process()</div><div class="c-code__line">print(fd.device.ismobile.value())</div></div><p>For more in-depth examples, check out the <a href="https://51degrees.com/device-detection-python/examples.html">examples</a> page in the documentation.</p>
 <h3>From GitHub</h3>
 <h4>Examples</h4>
-<p>If you've cloned the GitHub repository, you will be able to run the examples in the <code>fiftyone_devicedetection_examples</code> directory.</p>
+<p>If you've cloned the GitHub repository, you will be able to run the examples in the <code><a class="el" href="namespacefiftyone__devicedetection__examples.html">fiftyone_devicedetection_examples</a></code> directory.</p>
 <h2>Tests</h2>
 <p>To run the tests use:</p>
 <p><code>python -m unittest discover -s tests -p test*.py -b</code> </p>

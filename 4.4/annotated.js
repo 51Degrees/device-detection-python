@@ -1,19 +1,12 @@
 var annotated =
 [
-    [ "app", "namespaceapp.html", "namespaceapp" ],
     [ "build", "namespacebuild.html", null ],
-    [ "configurator_console", "namespaceconfigurator__console.html", "namespaceconfigurator__console" ],
-    [ "datafileupdate_console", "namespacedatafileupdate__console.html", "namespacedatafileupdate__console" ],
-    [ "device-detection-python", "namespacedevice-detection-python.html", "namespacedevice-detection-python" ],
-    [ "example_utils", "namespaceexample__utils.html", "namespaceexample__utils" ],
+    [ "examples", "namespaceexamples.html", null ],
+    [ "fiftyone_devicedetection", "namespacefiftyone__devicedetection.html", "namespacefiftyone__devicedetection" ],
     [ "fiftyone_devicedetection_cloud", "namespacefiftyone__devicedetection__cloud.html", "namespacefiftyone__devicedetection__cloud" ],
+    [ "fiftyone_devicedetection_examples", "namespacefiftyone__devicedetection__examples.html", "namespacefiftyone__devicedetection__examples" ],
     [ "fiftyone_devicedetection_onpremise", "namespacefiftyone__devicedetection__onpremise.html", "namespacefiftyone__devicedetection__onpremise" ],
-    [ "gettingstarted_console", "namespacegettingstarted__console.html", "namespacegettingstarted__console" ],
-    [ "match_metrics", "namespacematch__metrics.html", "namespacematch__metrics" ],
-    [ "metadata_console", "namespacemetadata__console.html", "namespacemetadata__console" ],
-    [ "nativemodellookup_console", "namespacenativemodellookup__console.html", "namespacenativemodellookup__console" ],
-    [ "offlineprocessing", "namespaceofflineprocessing.html", "namespaceofflineprocessing" ],
+    [ "fiftyone_devicedetection_shared", "namespacefiftyone__devicedetection__shared.html", "namespacefiftyone__devicedetection__shared" ],
     [ "setup", "namespacesetup.html", "namespacesetup" ],
-    [ "taclookup_console", "namespacetaclookup__console.html", "namespacetaclookup__console" ],
     [ "tests", "namespacetests.html", "namespacetests" ]
 ];

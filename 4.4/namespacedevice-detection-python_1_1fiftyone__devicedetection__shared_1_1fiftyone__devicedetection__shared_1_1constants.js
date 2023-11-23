@@ -1,4 +1,0 @@
-var namespacedevice_detection_python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__shared_1_1constants =
-[
-    [ "Constants", "classdevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__38aa77c3c7c357b5b11396c5541a6614.html", "classdevice-detection-python_1_1fiftyone__devicedetection__shared_1_1fiftyone__devicedetection__38aa77c3c7c357b5b11396c5541a6614" ]
-];

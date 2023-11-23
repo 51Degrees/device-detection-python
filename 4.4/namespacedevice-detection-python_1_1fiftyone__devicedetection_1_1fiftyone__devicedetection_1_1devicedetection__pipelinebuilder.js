@@ -1,4 +1,0 @@
-var namespacedevice_detection_python_1_1fiftyone__devicedetection_1_1fiftyone__devicedetection_1_1devicedetection__pipelinebuilder =
-[
-    [ "DeviceDetectionPipelineBuilder", "classdevice-detection-python_1_1fiftyone__devicedetection_1_1fiftyone__devicedetection_1_1devicec471a50a2266ca724c24d1a5e203d34b.html", "classdevice-detection-python_1_1fiftyone__devicedetection_1_1fiftyone__devicedetection_1_1devicec471a50a2266ca724c24d1a5e203d34b" ]
-];
