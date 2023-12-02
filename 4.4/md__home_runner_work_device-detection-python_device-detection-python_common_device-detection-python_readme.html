@@ -148,9 +148,12 @@ $(document).ready(function(){initNavTree('md__home_runner_work_device-detection-
 <p>Make can be installed on Windows. Alternatively, there is also a powershell setup script called <code>setup.ps1</code>. To run it, you may need to update the execution policy to allow unsigned scripts to execute:</p>
 <div class="c-code__block c-code__block--outline"><div class="c-code__line">Set-ExecutionPolicy -Scope CurrentUser Bypass</div><div class="c-code__line"></div><div class="c-code__line">.\setup.ps1</div></div><p>Finally, if the make or powershell scripts fail, or you want to perform the steps manually for some other reason, these are the commands to build the native on-premise library and install the packages.</p>
 <div class="c-code__block c-code__block--outline"><div class="c-code__line">python -m pip install -e fiftyone_devicedetection_shared/</div><div class="c-code__line">python -m pip install -e fiftyone_devicedetection_cloud/</div><div class="c-code__line">cd fiftyone_devicedetection_onpremise/</div><div class="c-code__line">python setup.py build_clib build_ext</div><div class="c-code__line">cd ../</div><div class="c-code__line">python -m pip install -e fiftyone_devicedetection_onpremise/</div><div class="c-code__line">python -m pip install -e fiftyone_devicedetection/</div></div><h2>Examples</h2>
-<p>To run an example, navigate into the example module directory.</p>
-<div class="c-code__block c-code__block--outline"><div class="c-code__line">cd fiftyone_devicedetection_examples/</div></div><p>Then run an example:</p>
-<div class="c-code__block c-code__block--outline"><div class="c-code__line">python -m fiftyone_devicedetection_examples.cloud.gettingstarted_console</div></div><h3>Cloud</h3>
+<h3>Prerequisites</h3>
+<p>Please install the pre-requisites listed above as well as the examples themselves as a package: </p><div class="c-code__block c-code__block--outline"><div class="c-code__line">python -m pip install -e fiftyone_devicedetection_examples/</div><div class="c-code__line">python -m pip install -e fiftyone_devicedetection_shared/</div></div><h3>Running examples</h3>
+<p>To run an example - run a corresponding Python module specifying its full namespace.</p>
+<p>For cloud examples please provide a <code>resource_key</code> as an environment variable, f.e.:</p>
+<div class="c-code__block c-code__block--outline"><div class="c-code__line">resource_key=&lt;your_resource_key&gt; python -m fiftyone_devicedetection_examples.cloud.gettingstarted_console</div></div><p>For some of the onpremise examples you might need to provide a <code>license_key</code> as an environment variable, f.e.: </p><div class="c-code__block c-code__block--outline"><div class="c-code__line">license_key=&lt;your_license_key&gt; python -m fiftyone_devicedetection_examples.onpremise.datafileupdate_console</div></div><div class="c-code__block c-code__block--outline"><div class="c-code__line">python -m fiftyone_devicedetection_examples.cloud.gettingstarted_console</div></div><p>Please see a full list of provided cloud and onpremise examples below.</p>
+<h3>Cloud</h3>
 <div class="g-table g-table--overflow"><table class="c-table">
 <tr class="c-table__row--heading">
 <td class="c-table__cell">Example  </td><td class="c-table__cell">Description   </td></tr>
@@ -159,13 +162,13 @@ $(document).ready(function(){initNavTree('md__home_runner_work_device-detection-
 <tr class="c-table__row">
 <td class="c-table__cell">gettingstarted_web  </td><td class="c-table__cell">How to use the 51Degrees Cloud service to determine details about a device as part of a simple ASP.NET website.   </td></tr>
 <tr class="c-table__row">
-<td class="c-table__cell">taclookup  </td><td class="c-table__cell">How to get device details from a TAC (Type Allocation Code) using the 51Degrees cloud service.   </td></tr>
+<td class="c-table__cell">taclookup_console  </td><td class="c-table__cell">How to get device details from a TAC (Type Allocation Code) using the 51Degrees cloud service.   </td></tr>
 <tr class="c-table__row">
-<td class="c-table__cell">nativemodellookup  </td><td class="c-table__cell">How to get device details from a native model name using the 51Degrees cloud service.   </td></tr>
+<td class="c-table__cell">nativemodellookup_console  </td><td class="c-table__cell">How to get device details from a native model name using the 51Degrees cloud service.   </td></tr>
 <tr class="c-table__row">
 <td class="c-table__cell">failuretomatch  </td><td class="c-table__cell">Demonstrate the features that are available when a match cannot be found.   </td></tr>
 <tr class="c-table__row">
-<td class="c-table__cell">metadata  </td><td class="c-table__cell">How to access the meta-data for the device detection data model. For example, information about the available properties.   </td></tr>
+<td class="c-table__cell">metadata_console  </td><td class="c-table__cell">How to access the meta-data for the device detection data model. For example, information about the available properties.   </td></tr>
 <tr class="c-table__row">
 <td class="c-table__cell">useragentclienthints-web  </td><td class="c-table__cell">Legacy example. Retained for the associated automated tests. See GettingStarted-Web instead.   </td></tr>
 </table>
@@ -182,13 +185,15 @@ $(document).ready(function(){initNavTree('md__home_runner_work_device-detection-
 <tr class="c-table__row">
 <td class="c-table__cell">match_metrics  </td><td class="c-table__cell">How to access the metrics that relate to the device detection algorithm.   </td></tr>
 <tr class="c-table__row">
-<td class="c-table__cell">metadata  </td><td class="c-table__cell">How to access the meta-data for the device detection data model. For example, information about the available properties.   </td></tr>
+<td class="c-table__cell">metadata_console  </td><td class="c-table__cell">How to access the meta-data for the device detection data model. For example, information about the available properties.   </td></tr>
 <tr class="c-table__row">
-<td class="c-table__cell">offline_processing  </td><td class="c-table__cell">Example showing how to ingest a file containing data from web requests and perform detection against the entries.   </td></tr>
+<td class="c-table__cell">offlineprocessing  </td><td class="c-table__cell">Example showing how to ingest a file containing data from web requests and perform detection against the entries.   </td></tr>
 <tr class="c-table__row">
 <td class="c-table__cell">performance  </td><td class="c-table__cell">How to configure the various performance options and run a simple performance test.   </td></tr>
 <tr class="c-table__row">
 <td class="c-table__cell">useragentclienthints-web  </td><td class="c-table__cell">Legacy example. Retained for the associated automated tests. See GettingStarted-Web instead.   </td></tr>
+<tr class="c-table__row">
+<td class="c-table__cell">datafileupdate_console  </td><td class="c-table__cell">How to automatically update data file   </td></tr>
 </table>
 </div> </section></div><!-- PageDoc -->
 </div><!-- primary -->
