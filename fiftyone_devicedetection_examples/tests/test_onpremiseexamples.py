@@ -58,7 +58,6 @@ class DeviceDetectionExampleTests(unittest.TestCase):
         example = MatchMetricsConsole()
         example.run(self.data_file, False, self.logger, print)
 
-    @unittest.skip("TODO: fix the test")
     def test_onpremise_datafileupdate_console(self):
         example = DataFileUpdateConsole()
         license_key = KeyUtils.get_named_key(UPDATE_EXAMPLE_LICENSE_KEY_NAME)

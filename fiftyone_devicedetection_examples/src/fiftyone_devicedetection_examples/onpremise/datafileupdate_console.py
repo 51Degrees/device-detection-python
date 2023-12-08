@@ -156,16 +156,16 @@
 # - fiftyone_devicedetection
 # 
 
-from datetime import datetime
 import os
 import shutil
 import sys
 import threading
+from datetime import datetime
+
 from fiftyone_devicedetection.devicedetection_pipelinebuilder import DeviceDetectionPipelineBuilder
-from fiftyone_devicedetection_examples.example_utils import ExampleUtils
+from fiftyone_devicedetection_shared.example_constants import ENTERPRISE_DATAFILE_NAME
 from fiftyone_devicedetection_shared.key_utils import KeyUtils
 from fiftyone_pipeline_core.logger import Logger
-from fiftyone_devicedetection_shared.example_constants import ENTERPRISE_DATAFILE_NAME
 from fiftyone_pipeline_engines.datafile_update_service import DataFileUpdateService
 from fiftyone_pipeline_engines.datafile_update_service import UpdateStatus
 
@@ -202,52 +202,16 @@ class DataFileUpdateConsole():
 				f"named '{UPDATE_EXAMPLE_LICENSE_KEY_NAME}'")
 			raise Exception("No license key available")
 
-		# work out where the downloaded file will be put, directory must exist
-		if (data_file != None):
-			try:
-				data_file = ExampleUtils.find_file(data_file)
-			except:
-				if (os.path.exists(os.path.dirname(data_file)) == False):
-					logger.log("error",
-						"The directory must exist when specifying a location for a new "
-						f"file to be downloaded. Path specified was '{data_file}'")
-				raise Exception("Directory for new file must exist")
-			logger.log("warning",
-				f"File {data_file} not found, a file will be downloaded to that location on "
-				"start-up")
-				
-		# no filename specified use the default
-		if (data_file == None):
-			data_file = os.path.realpath(DEFAULT_DATA_FILENAME)
-			logger.log("warning",
-				f"No filename specified. Using default '{data_file}' which will be downloaded to "
-				"that location on start-up, if it does not exist already")
+		shutil.copy(data_file, os.path.realpath(DEFAULT_DATA_FILENAME))
+		data_file = os.path.realpath(DEFAULT_DATA_FILENAME)
 
 		copy_data_file_name = data_file + ".bak"
-		if (os.path.exists(data_file)):
-			# let's check this file out
-			pipeline = DeviceDetectionPipelineBuilder(
-				data_file_path = data_file,
-				performance_profile = "LowMemory",
-				usage_sharing = False,
-				auto_update = False,
-				licence_keys = "").add_logger(logger).build()
-				
-			# and output the results
-			ExampleUtils.check_data_file(pipeline, logger)
-			if (ExampleUtils.get_data_file_tier(pipeline.get_element("device")) == "Lite"):
-				logger.log("error",
-					"Will not download an 'Enterprise' data file over the top of "
-					"a 'Lite' data file, please supply another location.")
-				raise Exception("File supplied has wrong data tier")
-			logger.log("info", "Existing data file will be replaced with downloaded data file")
-			logger.log("info", f"Existing data file will be copied to {copy_data_file_name}")
 
 		# do we really want to do this
 		if (interactive):
 			output("Please note - this example will use available downloads "
 				"in your licensed allocation.")
-			user_input = input("Do you wish to continue with this example (y)? ") 
+			user_input = input("Do you wish to continue with this example (y)? ")
 			if (user_input == None or user_input == "" or user_input.startswith("y") == False):
 				logger.log("info", "Stopping example without download")
 				return
@@ -255,7 +219,7 @@ class DataFileUpdateConsole():
 		logger.log("info", "Checking file exists")
 		if os.path.exists(data_file):
 			logger.log("info", f"Existing data file copied to {copy_data_file_name}")
-			shutil.move(data_file, copy_data_file_name)
+			shutil.copy(data_file, copy_data_file_name)
 
 		logger.log("info",
 			"Creating pipeline and initiating update on start-up - please wait for that "
@@ -322,11 +286,19 @@ class DataFileUpdateConsole():
 			else:
 				output("Update on file modification timed out")
 		else:
+			self._clear(data_file)
 			logger.log("error", "Auto update was not successful, abandoning example")
 			raise Exception(f"Auto update failed: {update_event.status}")
-
+		self._clear(data_file)
 		output("Finished Example")
 
+	def _clear(self, data_file):
+		self._remove_file(data_file)
+		self._remove_file(data_file + '.bak')
+
+	def _remove_file(self, file):
+		if os.path.exists(file):
+			os.remove(file)
 
 def main(argv):
 	# Use the supplied path for the data file or find the lite
