@@ -45,7 +45,7 @@ var NAVTREEINDEX =
 [
 "../../documentation/4.4/index.html",
 "classfiftyone__devicedetection__onpremise_1_1_device_detection_hash_engine_module_1_1_map_string_string_swig.html#ad6bee6b43bd14ca77b9f3f06eba02231",
-"classtests_1_1test__devicedetection_1_1_device_detection_tests.html#a73e2d6abce14b5d25e8e552774046f8e"
+"classtests_1_1test__cloudgettingstartedweb_1_1_cloud_getting_started_web_tests.html#a6dfba116dcc121e1acc5784ddd815a38"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

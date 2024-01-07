@@ -1,5 +1,6 @@
 var namespacetests =
 [
+    [ "test_automatic_data_file_updates", "namespacetests_1_1test__automatic__data__file__updates.html", "namespacetests_1_1test__automatic__data__file__updates" ],
     [ "test_cloud", "namespacetests_1_1test__cloud.html", "namespacetests_1_1test__cloud" ],
     [ "test_cloudexamples", "namespacetests_1_1test__cloudexamples.html", "namespacetests_1_1test__cloudexamples" ],
     [ "test_cloudgettingstartedweb", "namespacetests_1_1test__cloudgettingstartedweb.html", "namespacetests_1_1test__cloudgettingstartedweb" ],

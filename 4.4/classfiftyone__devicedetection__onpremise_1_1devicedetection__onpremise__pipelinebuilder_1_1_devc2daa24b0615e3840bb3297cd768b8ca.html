@@ -285,10 +285,11 @@ Public Member Functions</h2>
     <tr><dd class="c-list-definition__desc"><span class="b-text--red">update_on_start</span> - : When this is set to true the datafile is updated / downloaded immediately on initialisation. This is useful if no initial datafile is present. @type file_system_watcher: bool </dd>
     <tr><dd class="c-list-definition__desc"><span class="b-text--red">file_system_watcher</span> - whether to check the datafile's path for changes and update the connected FlowElement's data @type polling_interval: int </dd>
     <tr><dd class="c-list-definition__desc"><span class="b-text--red">polling_interval</span> - How often to poll for updates to the datafile (minutes) @type update_time_maximum_randomisation : int </dd>
-    <tr><dd class="c-list-definition__desc"><span class="b-text--red">update_time_maximum_randomisation</span> - : Maximum randomisation offset in seconds to polling time interval @type verify_md5 : bool @type create_temp_copy: bool </dd>
-    <tr><dd class="c-list-definition__desc"><span class="b-text--red">create_temp_copy</span> - whether to copy datafile to temporary location when updating @type data_file_update_base_url: string </dd>
-    <tr><dd class="c-list-definition__desc"><span class="b-text--red">data_file_update_base_url</span> - base url for the datafile update service </dd>
+    <tr><dd class="c-list-definition__desc"><span class="b-text--red">update_time_maximum_randomisation</span> - : Maximum randomisation offset in seconds to polling time interval @type data_update_verify_md5 : bool @type create_temp_copy: bool </dd>
+    <tr><dd class="c-list-definition__desc"><span class="b-text--red">create_temp_copy</span> - whether to copy datafile to temporary location when updating @type data_update_url: string </dd>
+    <tr><dd class="c-list-definition__desc"><span class="b-text--red">data_update_url</span> - base url for the datafile update service </dd>
     <tr><dd class="c-list-definition__desc"><span class="b-text--red">data_file_update_service</span> - service for the pipeline to use for auto updates instead of the default @type data_file_update_service: DataFileUpdateService </dd>
+    <tr><dd class="c-list-definition__desc"><span class="b-text--red">data_update_use_url_formatter</span> - This must be set to false to prevent the API from appending the query string parameters that are required when calling the 51Degrees Distributor service. @type data_update_use_url_formatter: bool </dd>
   </dd>
 </dl>
 <!-- endIndent -->
