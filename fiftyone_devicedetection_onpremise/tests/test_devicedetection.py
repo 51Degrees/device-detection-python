@@ -65,7 +65,7 @@ class DeviceDetectionTests(unittest.TestCase):
 
     def test_on_premise_engine_datafile(self):
         """!
-        Tests whether a datafile (for the update service) is added when auto_update is set 
+        Tests whether a datafile (for the update service) is added when auto_update is set
         """
 
         pipeline = DeviceDetectionOnPremisePipelineBuilder(
