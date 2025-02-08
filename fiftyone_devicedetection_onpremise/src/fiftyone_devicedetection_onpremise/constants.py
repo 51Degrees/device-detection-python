@@ -36,13 +36,3 @@ ITERATIONS_DESCRIPTION = ('The number of iterations carried out in order to '
                           'find a match. This is the number of nodes in the '
                           'graph which have been visited.')
 METHOD_DESCRIPTION = 'The method used to determine the match result.'
-HARDCODED_EVIDENCE = {
-    "GHEV": {
-        "COOKIE": "cookie.51d_gethighentropyvalues",
-        "QUERY": "query.51d_gethighentropyvalues",
-    },
-    "SUA": {
-        "COOKIE": "cookie.51d_structureduseragent",
-        "QUERY": "query.51d_structureduseragent",
-    },
-}

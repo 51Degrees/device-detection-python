@@ -284,13 +284,6 @@ class DeviceDetectionOnPremise(Engine):
         for x in range(evidence_keys.size()):
             evidence_keys_list.append(evidence_keys.__getitem__(x).lower())
 
-        evidence_keys_list.extend([
-            HARDCODED_EVIDENCE["GHEV"]["COOKIE"],
-            HARDCODED_EVIDENCE["GHEV"]["QUERY"],
-            HARDCODED_EVIDENCE["SUA"]["COOKIE"],
-            HARDCODED_EVIDENCE["SUA"]["QUERY"],
-        ])
-
         self.evidence_keys_list = evidence_keys_list
 
         # Get properties list
