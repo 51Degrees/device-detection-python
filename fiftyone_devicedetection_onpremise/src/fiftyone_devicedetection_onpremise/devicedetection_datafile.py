@@ -38,8 +38,8 @@ class DeviceDetectionDataFile(DataFile):
     Extension of the DataFile class for DeviceDetection
     This helps construct the update url based on url parameters provided
     by the engine, provides methods to get the published date and
-    update date of the datafile and refreshes the on premise 
-    engine when the datafile is updated. 
+    update date of the datafile and refreshes the on premise
+    engine when the datafile is updated.
     """
 
     def __init__(self, *args, **kwargs):
@@ -59,11 +59,13 @@ class DeviceDetectionDataFile(DataFile):
             return self.update_url_params["base_url"]
 
         query_params = {
-            "Type": self.update_url_params["type"]
+            "Type": self.update_url_params["type"],
+            "licenseKeys": self.update_url_params.get("license_keys"),
+            "Product": self.update_url_params.get("product")
         }
 
-        if ("license_keys" in self.update_url_params):
-            query_params["licenseKeys"] = self.update_url_params["license_keys"]
+        # Remove keys with None values
+        query_params = {k: v for k, v in query_params.items() if v is not None}
 
         return self.update_url_params["base_url"] + '?' + urlencode(query_params)
 
