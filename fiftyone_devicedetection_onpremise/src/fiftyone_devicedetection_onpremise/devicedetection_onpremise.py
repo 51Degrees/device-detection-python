@@ -71,10 +71,11 @@ class DeviceDetectionOnPremise(Engine):
         use_performance_graph=None,
         data_update_use_url_formatter=True,
         data_update_verify_md5=True,
+        data_update_product_type=None,
         **kwargs
     ):
         """!
-            
+
         Constructor for the DeviceDetection On Premise Engine.
 
         @type data_file_path: string
@@ -91,7 +92,7 @@ class DeviceDetectionOnPremise(Engine):
         @param download: whether to download the datafile or keep it in memory when it is returned from the datafile update service
         @type max_matched_useragents_length : int
         @param Number of characters to consider in the matched User-Agent. Ignored if update_matched_useragent is false
-        @type update_matched_useragent: 
+        @type update_matched_useragent:
         @param: update_matched_useragent: True if the detection should record the matched characters from the target User-Agent
         @type drift: int
         @param drift: Set maximum drift in hash position to allow when processing HTTP headers
@@ -108,7 +109,7 @@ class DeviceDetectionOnPremise(Engine):
         @type update_on_start : bool
         @param update_on_start : When this is set to true the datafile is updated / downloaded immediately on initialization. This is useful if no initial datafile is present.
         @type file_system_watcher: bool
-        @param file_system_watcher: whether to check the datafile's path for changes and update the connected FlowElement's data 
+        @param file_system_watcher: whether to check the datafile's path for changes and update the connected FlowElement's data
         @type polling_interval: int
         @param polling_interval: How often to poll for updates to the datafile (minutes)
         @type update_time_maximum_randomisation : int
@@ -120,7 +121,7 @@ class DeviceDetectionOnPremise(Engine):
         @type data_update_url: string
         @param data_update_url: base url for the datafile update service
         @type use_performance_graph: bool
-        @param use_performance_graph: True if the performance optimized graph should be used for processing 
+        @param use_performance_graph: True if the performance optimized graph should be used for processing
         @type use_predictive_graph: bool
         @param use_predictive_graph: True if the predictive optimized graph should be used for processing
         @param data_update_use_url_formatter: This must be set to false to prevent the API from appending the query string parameters that are required when calling the 51Degrees Distributor service.
@@ -133,11 +134,11 @@ class DeviceDetectionOnPremise(Engine):
         self.datakey = "device"
 
         if not data_file_path and not data:
-            raise Exception("data_file_path or data is required") 
-        
+            raise Exception("data_file_path or data is required")
+
         if data_file_path:
             if os.path.isfile(data_file_path) == False and not update_on_start:
-                raise Exception("There is no file at " + data_file_path) 
+                raise Exception("There is no file at " + data_file_path)
 
             extention = os.path.splitext(data_file_path)[1]
 
@@ -171,7 +172,7 @@ class DeviceDetectionOnPremise(Engine):
         available_performance = ["LowMemory", "MaxPerformance", "Balanced", "BalancedTemp", "HighPerformance"]
 
         if performance_profile not in available_performance:
-            raise Exception("Not a valid performance profile") 
+            raise Exception("Not a valid performance profile")
 
         if performance_profile == "LowMemory":
             config.setLowMemory()
@@ -192,7 +193,7 @@ class DeviceDetectionOnPremise(Engine):
 
         if(use_performance_graph):
             config.setUsePerformanceGraph(True)
-        
+
         if(use_predictive_graph):
             config.setUsePredictiveGraph(True)
 
@@ -228,7 +229,7 @@ class DeviceDetectionOnPremise(Engine):
         self.data_file_path = data_file_path
 
         # Disable features that require a licence key if one was not supplied.
-    
+
         if licence_keys:
             auto_update = auto_update and (len(licence_keys) > 0)
             update_on_start = update_on_start and (len(licence_keys) > 0)
@@ -237,7 +238,7 @@ class DeviceDetectionOnPremise(Engine):
             update_on_start = False
 
         if auto_update or update_on_start or file_system_watcher:
-            
+
             # Construct DataFile
 
             update_url_params = {
@@ -245,10 +246,15 @@ class DeviceDetectionOnPremise(Engine):
             }
 
             if data_update_use_url_formatter:
-                update_url_params["type"] = "HashV41"
+                update_url_params = {
+                    "base_url": data_update_url,
+                    "type": "HashV41",
+                    "product": data_update_product_type if data_update_product_type else None,
+                    "license_keys": licence_keys if licence_keys else None
+                }
 
-            if licence_keys and data_update_use_url_formatter:
-                update_url_params["license_keys"] = licence_keys
+                # Remove keys with None values
+                update_url_params = {k: v for k, v in update_url_params.items() if v is not None}
 
             data_file = DeviceDetectionDataFile(flow_element=self, identifier="HashV41", verify_md5=data_update_verify_md5, auto_update = auto_update, update_on_start = update_on_start, decompress= True, path = data_file_path, download=download, file_system_watcher=file_system_watcher, polling_interval=polling_interval, update_time_maximum_randomisation=update_time_maximum_randomisation, update_url_params = update_url_params, data_update_use_url_formatter = data_update_use_url_formatter)
 
@@ -261,7 +267,7 @@ class DeviceDetectionOnPremise(Engine):
     def init_engine(self):
 
         """!
-            
+
         Function for initialising the engine, wrapped like this so that an engine can be initialised once the datafile is retrieved if update_on_start is set to true. If this is the case, processing is held until the data file is downloaded and available.
 
         """
@@ -303,7 +309,7 @@ class DeviceDetectionOnPremise(Engine):
                 "description": current_property.getDescription(),
                 "component": self.get_component(current_property)
             }
-        
+
         self.properties = properties
 
         # Special properties
@@ -365,16 +371,16 @@ class DeviceDetectionOnPremise(Engine):
         """!
         Returns evidence key filter for the on premise engine.
         Generated via a list of evidence keys from the swig engine
-        
+
         """
-        
+
         return BasicListEvidenceKeyFilter(self.evidence_keys_list)
 
-    
+
     def on_registration(self, pipeline):
 
         """!
-            
+
         Function called after the engine is registered with a pipeline
         the engine base class registers the datafile but we also need
         to initialise the SWIG wrapper so call self.init_engine() here
@@ -388,7 +394,7 @@ class DeviceDetectionOnPremise(Engine):
     def process_internal(self, flow_data):
 
         """!
-        
+
         Internal process method of the Device Detection On Premise engine
         Gets properties through the SWIG wrapper and stores them in a
         SwigData extension of the ElementData class. Each property value (or lack of) is returned in an AspectPropertyData wrapper from
