@@ -71,6 +71,7 @@ class DeviceDetectionOnPremise(Engine):
         use_performance_graph=None,
         data_update_use_url_formatter=True,
         data_update_verify_md5=True,
+        data_update_product_type=None,
         **kwargs
     ):
         """!
@@ -245,10 +246,15 @@ class DeviceDetectionOnPremise(Engine):
             }
 
             if data_update_use_url_formatter:
-                update_url_params["type"] = "HashV41"
+                update_url_params = {
+                    "base_url": data_update_url,
+                    "type": "HashV41",
+                    "product": data_update_product_type if data_update_product_type else None,
+                    "license_keys": licence_keys if licence_keys else None
+                }
 
-            if licence_keys and data_update_use_url_formatter:
-                update_url_params["license_keys"] = licence_keys
+                # Remove keys with None values
+                update_url_params = {k: v for k, v in update_url_params.items() if v is not None}
 
             data_file = DeviceDetectionDataFile(flow_element=self, identifier="HashV41", verify_md5=data_update_verify_md5, auto_update = auto_update, update_on_start = update_on_start, decompress= True, path = data_file_path, download=download, file_system_watcher=file_system_watcher, polling_interval=polling_interval, update_time_maximum_randomisation=update_time_maximum_randomisation, update_url_params = update_url_params, data_update_use_url_formatter = data_update_use_url_formatter)
 
