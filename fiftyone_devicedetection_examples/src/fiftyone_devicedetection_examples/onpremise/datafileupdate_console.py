@@ -192,10 +192,10 @@ class DataFileUpdateConsole():
 		logger.log("info", "Starting example")
 
 		# try to find a license key
-		if (license_key == None):
+		if not license_key:
 			license_key = KeyUtils.get_named_key(UPDATE_EXAMPLE_LICENSE_KEY_NAME)
 
-		if (license_key == None or KeyUtils.is_invalid_key(license_key)):
+		if not license_key:
 			logger.log("error",
 				"In order to test this example you will need a 51Degrees Enterprise "
 				"license which can be obtained on a trial basis or purchased from our\n"
@@ -292,7 +292,8 @@ class DataFileUpdateConsole():
 			auto_update = True,
 			# Watch the data file on disk and refresh the engine
 			# as soon as that file is updated.
-			file_system_watcher = True
+			file_system_watcher=True,
+			data_update_product_type="V4TAC",
 			).add_logger(logger).build()
 
 
