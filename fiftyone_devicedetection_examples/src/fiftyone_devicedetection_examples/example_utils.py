@@ -73,13 +73,13 @@ class ExampleUtils:
     @staticmethod
     def get_human_readable(device, property):
         try:
-            value = getattr(device, property)
-            if value.has_value():
-                return value.value()
-            else:
-                return f"Unknown ({value.no_value_message()})"
-        except:
+            value = device.get(property)
+        except Exception:
             return "Property not found in data file"
+        if value and value.has_value():
+            return value.value()
+        else:
+            return f"Unknown ({value.no_value_message()})"
 
     @staticmethod
     def get_resource_key():
