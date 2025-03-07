@@ -246,6 +246,7 @@ clib = ('clib', {
             "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/threading.c",
             "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/tree.c",
             "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/value.c",
+            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/wkbtot.c",
             "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/yamlfile.c",
             # Device Detection C
             "src/fiftyone_devicedetection_onpremise/cxx/src/dataset-dd.c",
