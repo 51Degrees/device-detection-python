@@ -219,7 +219,6 @@ clib = ('clib', {
             "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/cache.c",
             "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/collection.c",
             "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/component.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/coordinate.c",
             "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/data.c",
             "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/dataset.c",
             "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/evidence.c",
