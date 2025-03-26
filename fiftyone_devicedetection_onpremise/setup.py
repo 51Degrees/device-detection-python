@@ -29,6 +29,7 @@ from setuptools import setup, Extension
 from setuptools.command import develop
 from distutils import sysconfig
 from Cython.Distutils import build_ext
+from glob import glob
 import os
 import io
 
@@ -99,7 +100,7 @@ cflags = []
 if sys.platform != "win32":
     extra_compile_args.extend([
         '-fPIC',
-        '-std=gnu++11',
+        '-std=gnu++17',
         '-Wall',
         # '-Werror'
     ])
@@ -116,6 +117,7 @@ if sys.platform != "win32":
 
 if sys.platform == "win32":
     extra_compile_args.extend([
+        '/std:c++17',
         '/D_CRT_SECURE_NO_WARNINGS',
         '/D_UNICODE',
         '/DUNICODE',
@@ -171,43 +173,11 @@ DeviceDetectionHashEngineModule = Extension('_DeviceDetectionHashEngineModule',
 cpplib = ('cpplib', {
         'sources': [
             # Common C++
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/CollectionConfig.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/ComponentMetaData.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/ConfigBase.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/Date.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/EngineBase.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/EvidenceBase.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/Exceptions.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/MetaData.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/ProfileMetaData.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/PropertyMetaData.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/RequiredPropertiesConfig.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/ResultsBase.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/ValueMetaData.cpp",
+            *glob("src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/*.cpp"),
             # Device Detection C++
-            "src/fiftyone_devicedetection_onpremise/cxx/src/ConfigDeviceDetection.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/EngineDeviceDetection.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/EvidenceDeviceDetection.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/ResultsDeviceDetection.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/Transform.cpp",
+            *glob("src/fiftyone_devicedetection_onpremise/cxx/src/*.cpp"),
             # Hash C++
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ComponentMetaDataBuilderHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ComponentMetaDataCollectionHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ConfigHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/EngineHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/MetaDataHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ProfileMetaDataBuilderHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ProfileMetaDataCollectionHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/PropertyMetaDataBuilderHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/PropertyMetaDataCollectionForComponentHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/PropertyMetaDataCollectionForPropertyHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/PropertyMetaDataCollectionHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ResultsHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ValueMetaDataBuilderHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ValueMetaDataCollectionBaseHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ValueMetaDataCollectionForProfileHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ValueMetaDataCollectionForPropertyHash.cpp",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/ValueMetaDataCollectionHash.cpp",
+            *glob("src/fiftyone_devicedetection_onpremise/cxx/src/hash/*.cpp"),
             ],
         'cflags': extra_compile_args
     })
@@ -215,46 +185,11 @@ cpplib = ('cpplib', {
 clib = ('clib', {
         'sources': [
             # Common C
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/bool.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/cache.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/collection.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/component.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/data.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/dataset.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/evidence.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/exceptionsc.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/file.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/float.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/headers.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/indices.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/ip.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/json.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/list.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/memory.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/overrides.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/pool.c",
-			"src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/process.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/profile.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/properties.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/property.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/resource.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/results.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/status.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/string.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/textfile.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/threading.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/tree.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/value.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/wkbtot.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/yamlfile.c",
+            *glob("src/fiftyone_devicedetection_onpremise/cxx/src/common-cxx/*.c"),
             # Device Detection C
-            "src/fiftyone_devicedetection_onpremise/cxx/src/dataset-dd.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/results-dd.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/gethighentropyvalues.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/transformc.c",
+            *glob("src/fiftyone_devicedetection_onpremise/cxx/src/*.c"),
             # Hash C
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/graph.c",
-            "src/fiftyone_devicedetection_onpremise/cxx/src/hash/hash.c",
+            *glob("src/fiftyone_devicedetection_onpremise/cxx/src/hash/*.c"),
         ],
         'cflags': cflags
     })
