@@ -25,7 +25,7 @@
 #
 # @include{doc} example-getting-started-web.txt
 # 
-# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/fiftyone_devicedetection_examples/cloud/gettingstarted_web/app.py). 
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/cloud/gettingstarted_web/app.py). 
 # 
 # @include{doc} example-require-resourcekey.txt
 # 
@@ -187,7 +187,7 @@ def main(argv):
             f"'{ExampleUtils.RESOURCE_KEY_ENV_VAR}'. The 51Degrees " +
             "cloud service is accessed using a 'ResourceKey'. " +
             "For more detail see " +
-            "http://51degrees.com/documentation/4.3/_info__resource_keys.html. " +
+            "https://51degrees.com/documentation/4.4/_info__resource_keys.html. " +
             "A resource key with the properties required by this " +
             "example can be created for free at " +
             "https://configure.51degrees.com/g3gMZdPY. " +
