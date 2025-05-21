@@ -33,7 +33,7 @@
 # keys that, when added to the evidence collection in flow data, could have some impact on the
 # result returned by device detection.
 #
-# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/fiftyone_devicedetection_examples/onpremise/metadata_console.py). 
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/onpremise/metadata_console.py). 
 # 
 # @include{doc} example-require-datafile.txt
 # 
@@ -61,15 +61,15 @@ class MetaDataConsole():
         # In this example, we use the DeviceDetectionPipelineBuilder
         # and configure it in code. For more information about
         # pipelines in general see the documentation at
-        # http://51degrees.com/documentation/4.3/_concepts__configuration__builders__index.html
+        # https://51degrees.com/documentation/4.4/_concepts__configuration__builders__index.html
         pipeline = DeviceDetectionPipelineBuilder(
             data_file_path = data_file,
             # We use the low memory profile as its performance is
             # sufficient for this example. See the documentation for
             # more detail on this and other configuration options:
-            # http://51degrees.com/documentation/4.3/_device_detection__features__performance_options.html
-            # http://51degrees.com/documentation/4.3/_features__automatic_datafile_updates.html
-            # http://51degrees.com/documentation/4.3/_features__usage_sharing.html
+            # https://51degrees.com/documentation/4.4/_device_detection__features__performance_options.html
+            # https://51degrees.com/documentation/4.4/_features__automatic_datafile_updates.html
+            # https://51degrees.com/documentation/4.4/_features__usage_sharing.html
             performance_profile = "LowMemory",
             # inhibit sharing usage for this test, usually this
             # should be set "true"
