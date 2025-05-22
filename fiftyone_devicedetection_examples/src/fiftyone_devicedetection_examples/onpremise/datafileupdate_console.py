@@ -148,7 +148,7 @@
 # ```
 #
 # # Location
-# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/fiftyone_devicedetection_examples/onpremise/datafileupdate_console.py).
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/onpremise/datafileupdate_console.py).
 #
 # @include{doc} example-require-licensekey.txt
 #
@@ -187,7 +187,8 @@ class UpdateEvent(threading.Event):
 		self.status = None
 		super().clear()
 
-class DataFileUpdateConsole():
+
+class DataFileUpdateConsole:
 	def run(self, data_file, license_key, interactive, logger, output):
 		logger.log("info", "Starting example")
 
@@ -296,7 +297,6 @@ class DataFileUpdateConsole():
 			data_update_product_type="V4TAC",
 			).add_logger(logger).build()
 
-
 		# thread blocks till update checking is complete - or if there is an
 		# exception we don't get this far
 		update_event.wait()
@@ -345,6 +345,7 @@ def main(argv):
 	logger = Logger(min_level="info")
 
 	DataFileUpdateConsole().run(data_file, license_key, True, logger, print)
+
 
 if __name__ == "__main__":
 	main(sys.argv[1:])

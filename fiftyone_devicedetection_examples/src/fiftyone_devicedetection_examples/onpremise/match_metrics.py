@@ -30,13 +30,13 @@
 # The example also illustrates controlling properties that are returned from the detection
 # process - reducing the number of components required to return the properties requested reduces
 # the overall time taken.
-# 
+#
 # There is a [discussion](https://51degrees.com/documentation/_device_detection__hash.html#DeviceDetection_Hash_DataSetProduction_Performance)
 # of metrics and controlling performance on our web site. See also the (performance options)
 # [https://51degrees.com/documentation/_device_detection__features__performance_options.html]
 # page.
 # # Location
-# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/fiftyone_devicedetection_examples/onpremise/match_metrics.py].
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/onpremise/match_metrics.py].
 
 from itertools import groupby
 from pathlib import Path
@@ -49,8 +49,8 @@ from ..example_utils import ExampleUtils
 from fiftyone_devicedetection_shared.example_constants import EVIDENCE_VALUES
 from fiftyone_devicedetection_shared.example_constants import LITE_DATAFILE_NAME
 
-class MatchMetricsConsole():
-    
+
+class MatchMetricsConsole:
     def run(self, data_file, show_descs, logger, output):
         # Build a new Pipeline to use an on-premise Hash engine with the
         # low memory performance profile.
@@ -89,7 +89,7 @@ class MatchMetricsConsole():
             # We want to show the matching evidence characters as part of this example, so we have to set
             # this flag to true.
             update_matched_useragent = True).add_logger(logger).build()
-        
+
         ExampleUtils.check_data_file(pipeline, logger)
 
         data = pipeline.create_flowdata()
@@ -132,7 +132,7 @@ class MatchMetricsConsole():
         # b) the tier of data file being used. The Lite data file contains fewer
         # than 20 of the >200 available properties
         availableProperties = dict(pipeline.get_properties()[hashEngineElementKey])
-        
+
         # create a Map keyed on the component name of the properties available
         # components being hardware, browser, OS and Crawler.
         def get_component(property):
@@ -146,11 +146,11 @@ class MatchMetricsConsole():
             for propertyKey, property in properties:
                 propertyName = property["name"]
                 propertyDescription = property["description"]
-                
+
                 # while we get the available properties and their metadata from the
                 # pipeline we get the values for the last detection from flowData
                 value = device[propertyKey]
-                
+
                 # output property names, values and descriptions
                 # some property values are lists.
                 if value.has_value() and isinstance(value.value(), list):
@@ -166,10 +166,11 @@ class MatchMetricsConsole():
 
         output()
         logger.log("info", "Finished Match Metrics Example")
-    
+
     # Evidence values from a windows 11 device using a browser
     # that supports User-Agent Client Hints.
     Evidence = EVIDENCE_VALUES[2]
+
 
 def main(argv):
     # In this example, by default, the 51degrees "Lite" file needs to be
@@ -181,7 +182,7 @@ def main(argv):
     # Find out about the Enterprise data file on our pricing page:
     # https://51degrees.com/pricing
     data_file = argv[0] if len(argv) > 0 else ExampleUtils.find_file(LITE_DATAFILE_NAME)
-    
+
     # Configure a logger to output to the console.
     logger = Logger(min_level="info")
 
@@ -192,6 +193,7 @@ def main(argv):
             "Failed to find a device detection data file. Make sure the " +
             "device-detection-data submodule has been updated by running " +
             "`git submodule update --recursive`.")
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])

@@ -20,13 +20,13 @@
 # such notice(s) shall fulfill the requirements of that article.
 # *********************************************************************
 ## @example onpremise/performance.py
-# 
-# Provides an example of processing a CSV file containing evidence for device detection. 
+#
+# Provides an example of processing a CSV file containing evidence for device detection.
 # There are 20,000 examples in the supplied file of evidence representing HTTP Headers.
 # For example:
-# 
+#
 # We create a device detection pipeline to read the data and output the time taken and information about about the detection.
-# 
+#
 # Requesting properties from a single component
 # reduces detection time compared with requesting properties from multiple components. If you
 # don't specify any properties to detect, then all properties are detected.
@@ -34,11 +34,11 @@
 # Please review [performance options](https://51degrees.com/documentation/_device_detection__features__performance_options.html)
 # and [hash dataset options](https://51degrees.com/documentation/_device_detection__hash.html#DeviceDetection_Hash_DataSetProduction_Performance)
 # for more information about adjusting performance.
-# 
-# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/fiftyone_devicedetection_examples/onpremise/performance.py). 
-# 
+#
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/onpremise/performance.py).
+#
 # @include{doc} example-require-datafile.txt
-# 
+#
 # Required PyPi Dependencies:
 # - fiftyone_devicedetection
 
@@ -81,6 +81,7 @@ def process_user_agent(user_agent):
     else:
         return None
 
+
 def process_user_agent_list(data_file, user_agent_list, list_number, output, skip=False):
     global pipeline
     pipeline = DeviceDetectionOnPremisePipelineBuilder(
@@ -109,6 +110,7 @@ def process_user_agent_list(data_file, user_agent_list, list_number, output, ski
             results["notmobile"] += 1
 
     output.put(results, list_number)
+
 
 # Run the process
 def run(data_file, skip = False):
@@ -141,6 +143,7 @@ def run(data_file, skip = False):
     total = t1-t0
 
     return {"time": total, "result": results}
+
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description='Run detection benchmark.')
