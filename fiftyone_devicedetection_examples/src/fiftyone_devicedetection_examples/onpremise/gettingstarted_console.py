@@ -20,6 +20,19 @@
 # such notice(s) shall fulfill the requirements of that article.
 # *********************************************************************
 
+
+## @example onpremise/gettingstarted_console.py
+#
+# @include{doc} example-getting-started-onpremise.txt
+#
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/onpremise/gettingstarted_console.py).
+#
+# @include{doc} example-require-datafile.txt
+#
+# Required PyPi Dependencies:
+# - [fiftyone-devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
+#
+
 import sys
 from fiftyone_devicedetection.devicedetection_pipelinebuilder import DeviceDetectionPipelineBuilder
 from fiftyone_devicedetection_examples.example_utils import ExampleUtils
@@ -66,14 +79,14 @@ class GettingStartedConsole():
         # values, in this case represented by a dictionary of header
         # name/value entries.
         data = pipeline.create_flowdata()
-        
+
         message = []
 
         # List the evidence
         message.append("Input values:\n")
         for key in evidence:
             message.append(f"\t{key}: {evidence[key]}\n")
-        
+
         output("".join(message))
 
         # Add the evidence values to the flow data

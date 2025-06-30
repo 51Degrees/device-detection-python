@@ -20,6 +20,19 @@
 # such notice(s) shall fulfill the requirements of that article.
 # *********************************************************************
 
+
+## @example cloud/gettingstarted_console.py
+#
+# @include{doc} example-getting-started-cloud.txt
+#
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/cloud/gettingstarted_console.py).
+#
+# @include{doc} example-require-resourcekey.txt
+#
+# Required PyPi Dependencies:
+# - [fiftyone-devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
+#
+
 import json5
 from pathlib import Path
 import sys
@@ -53,14 +66,14 @@ class GettingStartedConsole():
         # values, in this case represented by a dictionary of header
         # name/value entries.
         data = pipeline.create_flowdata()
-        
+
         message = []
 
         # List the evidence
         message.append("Input values:\n")
         for key in evidence:
             message.append(f"\t{key}: {evidence[key]}\n")
-        
+
         output("".join(message))
 
         # Add the evidence values to the flow data
@@ -102,7 +115,7 @@ class GettingStartedConsole():
             else f"\t{name}: {value.no_value_message()}\n")
 
 
-    # This collection contains the various input values that will 
+    # This collection contains the various input values that will
     # be passed to the device detection algorithm.
     EvidenceValues = [
         # A User-Agent from a mobile device.
@@ -132,21 +145,21 @@ class GettingStartedConsole():
 def main(argv):
     # Use the command line args to get the resource key if present.
     # Otherwise, get it from the environment variable.
-    resource_key = argv[0] if len(argv) > 0 else ExampleUtils.get_resource_key() 
-    
+    resource_key = argv[0] if len(argv) > 0 else ExampleUtils.get_resource_key()
+
     # Configure a logger to output to the console.
     logger = Logger(min_level="info")
-    
+
     # Load the configuration file
     configFile = Path(__file__).resolve().parent.joinpath("gettingstarted_console.json").read_text()
     config = json5.loads(configFile)
 
-    # Get the resource key setting from the config file. 
+    # Get the resource key setting from the config file.
     resourceKeyFromConfig = ExampleUtils.get_resource_key_from_config(config)
     configHasKey = resourceKeyFromConfig and resourceKeyFromConfig.startswith("!!") == False
 
     # If no resource key is specified in the config file then override it with the key
-    # from the environment variable / command line. 
+    # from the environment variable / command line.
     if configHasKey == False:
         ExampleUtils.set_resource_key_in_config(config, resource_key)
 

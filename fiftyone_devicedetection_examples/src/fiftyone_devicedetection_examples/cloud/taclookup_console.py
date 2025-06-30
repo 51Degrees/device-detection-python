@@ -20,6 +20,21 @@
 # such notice(s) shall fulfill the requirements of that article.
 # *********************************************************************
 
+
+## @example cloud/taclookup_console.py
+#
+# This example shows how to use the 51Degrees Cloud service to lookup the details of a device
+# based on a given 'TAC'. More background information on TACs can be found through various online
+# sources such as <a href="https://en.wikipedia.org/wiki/Type_Allocation_Code">Wikipedia</a>.
+#
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/main/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/cloud/taclookup_console.py).
+#
+# @include{doc} example-require-resourcekey.txt
+#
+# Required PyPi Dependencies:
+# - [fiftyone-devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
+#
+
 import json5
 from pathlib import Path
 import sys
@@ -47,7 +62,7 @@ class TacLookupConsole():
 
         # Create the pipeline using the service provider and the configured options.
         pipeline = PipelineBuilder().add_logger(logger).build_from_configuration(config)
-        
+
         # Pass a TAC into the pipeline and list the matching devices.
         self.analyseTac(self._tac1, pipeline, output)
         # Repeat for an alternative TAC.
@@ -79,21 +94,21 @@ class TacLookupConsole():
 def main(argv):
     # Use the command line args to get the resource key if present.
     # Otherwise, get it from the environment variable.
-    resource_key = argv[0] if len(argv) > 0 else ExampleUtils.get_resource_key() 
-    
+    resource_key = argv[0] if len(argv) > 0 else ExampleUtils.get_resource_key()
+
     # Configure a logger to output to the console.
     logger = Logger()
-    
+
     # Load the configuration file
     configFile = Path(__file__).resolve().parent.joinpath("taclookup_console.json").read_text()
     config = json5.loads(configFile)
 
-    # Get the resource key setting from the config file. 
+    # Get the resource key setting from the config file.
     resourceKeyFromConfig = ExampleUtils.get_resource_key_from_config(config)
     configHasKey = resourceKeyFromConfig and resourceKeyFromConfig.startswith("!!") == False
 
     # If no resource key is specified in the config file then override it with the key
-    # from the environment variable / command line. 
+    # from the environment variable / command line.
     if configHasKey == False:
         ExampleUtils.set_resource_key_in_config(config, resource_key)
 
