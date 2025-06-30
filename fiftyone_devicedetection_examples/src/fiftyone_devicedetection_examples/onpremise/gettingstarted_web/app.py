@@ -30,7 +30,7 @@
 # @include{doc} example-require-datafile.txt
 # 
 # Required PyPi Dependencies:
-# - fiftyone_devicedetection
+# - [fiftyone-devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
 # - flask
 # 
 # ## Overview
