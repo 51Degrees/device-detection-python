@@ -42,7 +42,7 @@ class GettingStartedConsole():
             # https://51degrees.com/documentation/4.3/_device_detection__features__performance_options.html
             # https://51degrees.com/documentation/4.3/_features__automatic_datafile_updates.html
             # https://51degrees.com/documentation/4.3/_features__usage_sharing.html
-            performance_profile = "LowMemory",
+            performance_profile = "MaxPerformance",
             # inhibit sharing usage for this test, usually this
             # should be set "true"
             usage_sharing = False,
