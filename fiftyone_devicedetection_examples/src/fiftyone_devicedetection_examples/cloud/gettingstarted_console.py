@@ -21,6 +21,7 @@
 # *********************************************************************
 
 ## @example cloud/gettingstarted_console.py
+# @brief Getting Started Console Example - Cloud
 #
 # This example shows how to use the 51Degrees Cloud service to determine details about a
 # device based on its User-Agent and User-Agent Client Hint HTTP header values.

@@ -21,6 +21,7 @@
 # *********************************************************************
 
 ## @example onpremise/gettingstarted_console.py
+# @brief Getting Started Console Example - On-premise
 #
 # This example shows how to use 51Degrees On-premise device detection to determine details 
 # about a device based on its User-Agent and User-Agent Client Hint HTTP header values.
