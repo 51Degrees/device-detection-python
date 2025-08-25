@@ -20,6 +20,23 @@
 # such notice(s) shall fulfill the requirements of that article.
 # *********************************************************************
 
+## @example onpremise/gettingstarted_console.py
+#
+# This example shows how to use 51Degrees On-premise device detection to determine details 
+# about a device based on its User-Agent and User-Agent Client Hint HTTP header values.
+#
+# You will learn:
+# 1. How to create a Pipeline that uses 51Degrees On-premise device detection
+# 2. How to pass input data (evidence) to the Pipeline
+# 3. How to retrieve the results
+#
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/version/4.5/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/onpremise/gettingstarted_console.py).
+#
+# @include{doc} example-require-datafile.txt
+#
+# Required PyPi Dependencies:
+# - fiftyone_devicedetection
+
 import sys
 from fiftyone_devicedetection.devicedetection_pipelinebuilder import DeviceDetectionPipelineBuilder
 from fiftyone_devicedetection_examples.example_utils import ExampleUtils

@@ -20,6 +20,23 @@
 # such notice(s) shall fulfill the requirements of that article.
 # *********************************************************************
 
+## @example cloud/gettingstarted_console.py
+#
+# This example shows how to use the 51Degrees Cloud service to determine details about a
+# device based on its User-Agent and User-Agent Client Hint HTTP header values.
+#
+# You will learn:
+# 1. How to create a Pipeline that uses the 51Degrees cloud service
+# 2. How to pass input data (evidence) to the Pipeline
+# 3. How to retrieve the results
+#
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/version/4.5/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/cloud/gettingstarted_console.py).
+#
+# @include{doc} example-require-resourcekey.txt
+#
+# Required PyPi Dependencies:
+# - fiftyone_devicedetection
+
 import json5
 from pathlib import Path
 import sys
