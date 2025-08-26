@@ -21,7 +21,21 @@
 # *********************************************************************
 
 ## @example cloud/taclookup_console.py
-
+# @brief TAC Lookup Console Example - Cloud
+#
+# This example shows the details of devices associated with a given 'Type Allocation Code' or 'TAC'.
+# More background information on TACs can be found through various online sources such as Wikipedia: 
+# https://en.wikipedia.org/wiki/Type_Allocation_Code
+#
+# You will learn:
+# 1. How to create a Pipeline that uses the 51Degrees cloud service for TAC lookup
+# 2. How to pass a TAC as evidence to the Pipeline
+# 3. How to retrieve device details associated with the TAC
+#
+# This example is available in full on [GitHub](https://github.com/51Degrees/device-detection-python/blob/version/4.5/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/cloud/taclookup_console.py).
+#
+# @include{doc} example-require-resourcekey.txt
+#
 # Required PyPi Dependencies:
 # - [fiftyone_devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
 # - [json5](https://pypi.org/project/json5/)
