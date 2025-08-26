@@ -38,7 +38,7 @@
 # @include{doc} example-require-datafile.txt
 # 
 # Required PyPi Dependencies:
-# - fiftyone_devicedetection
+# - [fiftyone_devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
 # 
 
 from pathlib import Path

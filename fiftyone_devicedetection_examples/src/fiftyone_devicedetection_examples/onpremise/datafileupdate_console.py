@@ -153,7 +153,7 @@
 # @include{doc} example-require-licensekey.txt
 #
 # # Required PyPi Dependencies:
-# - fiftyone_devicedetection
+# - [fiftyone_devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
 #
 
 import os

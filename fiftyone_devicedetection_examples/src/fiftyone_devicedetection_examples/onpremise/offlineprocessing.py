@@ -47,8 +47,8 @@
 # @include{doc} example-require-datafile.txt
 # 
 # Required PyPi Dependencies:
-# - fiftyone_devicedetection
-# - ruamel
+# - [fiftyone_devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
+# - [ruamel.yaml](https://pypi.org/project/ruamel.yaml/)
 
 from pathlib import Path
 import sys

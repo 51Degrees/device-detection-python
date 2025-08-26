@@ -36,7 +36,7 @@ from ..example_utils import ExampleUtils
 # for a fuller example.
 #
 # Required PyPi Dependencies:
-# - fiftyone_devicedetection
+# - [fiftyone_devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
 class ConfiguratorConsole():
     def run(self, resource_key, logger, output):
 
