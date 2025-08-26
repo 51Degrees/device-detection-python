@@ -1,4 +1,3 @@
-## @example cloud/taclookup_console.py
 # *********************************************************************
 # This Original Work is copyright of 51 Degrees Mobile Experts Limited.
 # Copyright 2025 51 Degrees Mobile Experts Limited, Davidson House,
@@ -20,6 +19,8 @@
 # in the end user terms of the application under an appropriate heading,
 # such notice(s) shall fulfill the requirements of that article.
 # *********************************************************************
+
+## @example cloud/taclookup_console.py
 
 # Required PyPi Dependencies:
 # - [fiftyone_devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
