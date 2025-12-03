@@ -1,10 +1,9 @@
 param (
-    [Parameter(Mandatory=$true)]
-    [string]$RepoName,
     [string]$DeviceDetection,
     [string]$DeviceDetectionUrl,
     [string]$CsvUrl
 )
+$ErrorActionPreference = 'Stop'
 
 # PreBuild is a job from the nightly-publish-main workflow
 if ($env:GITHUB_JOB -eq "PreBuild") {
@@ -12,54 +11,21 @@ if ($env:GITHUB_JOB -eq "PreBuild") {
     exit 0
 }
 
-$ErrorActionPreference = 'Stop'
+$deviceDetectionData = "$PSScriptRoot/../fiftyone_devicedetection_onpremise/src/fiftyone_devicedetection_onpremise/cxx/device-detection-data"
 
-$assets = New-Item -ItemType Directory -Path assets -Force
-$deviceDetectionData = "$RepoName/fiftyone_devicedetection_onpremise/src/fiftyone_devicedetection_onpremise/cxx/device-detection-data"
-
-$downloads = @{
-    "TAC-HashV41.hash" = {
-        if (!$DeviceDetection) {
-            Write-Output "::warning file=$($MyInvocation.ScriptName),line=$($MyInvocation.ScriptLineNumber),title=No License Key::A device detection license was not provided, so On-Premise Data file will not be downloaded."
-            return
-        }
-        ./steps/fetch-hash-assets.ps1 -RepoName $RepoName -LicenseKey $DeviceDetection -Url $DeviceDetectionUrl
-        Move-Item -Path $RepoName/$file -Destination $assets
-    }
-    "51Degrees-LiteV4.1.hash" = {Invoke-WebRequest -Uri "https://github.com/51Degrees/device-detection-data/raw/main/51Degrees-LiteV4.1.hash" -OutFile $assets/$file}
-    "20000 Evidence Records.yml" = {Invoke-WebRequest -Uri "https://media.githubusercontent.com/media/51Degrees/device-detection-data/main/20000%20Evidence%20Records.yml" -OutFile $assets/$file}
-    "20000 User Agents.csv" = {Invoke-WebRequest -Uri "https://media.githubusercontent.com/media/51Degrees/device-detection-data/main/20000%20User%20Agents.csv" -OutFile $assets/$file}
-    "51Degrees.csv" = {
-        if (!$DeviceDetection) {
-            Write-Output "::warning file=$($MyInvocation.ScriptName),line=$($MyInvocation.ScriptLineNumber),title=No License Key::A device detection license was not provided, so '$file' will not be downloaded."
-            return
-        }
-        ./steps/fetch-csv-assets.ps1 -RepoName $RepoName -LicenseKey $DeviceDetection -Url $CsvUrl
-        Get-Content -TotalCount 1 $RepoName/51Degrees-Tac/51Degrees-Tac-All.csv | Out-File $assets/$file # We only need a header
-        Remove-Item -Path $RepoName/51Degrees-Tac.zip, $RepoName/51Degrees-Tac/51Degrees-Tac-All.csv
-    }
-}
-
-foreach ($file in $downloads.Keys) {
-    if (!(Test-Path $assets/$file)) {
-        Write-Output "Downloading $file"
-        Invoke-Command -ScriptBlock $downloads[$file]
-    } else {
-        Write-Output "'$file' exists, skipping download"
-    }
-}
-
+$assets = '51Degrees-LiteV4.1.hash', '20000 Evidence Records.yml', '20000 User Agents.csv'
 if ($DeviceDetection) {
-    # Tests mutate this file, so we copy it
-    Write-Output "Copying 'TAC-HashV41.hash' to '$deviceDetectionData/Enterprise-HashV41.hash'"
-    Copy-Item -Path $assets/TAC-HashV41.hash -Destination $deviceDetectionData/Enterprise-HashV41.hash
-
-    # Symlink the file
-    New-Item -ItemType SymbolicLink -Force -Target $assets/51Degrees.csv -Path "$RepoName/fiftyone_devicedetection_cloud/tests/51Degrees.csv"
+    $assets += 'TAC-HashV41.hash', '51Degrees.csv'
+} else {
+    Write-Host "::warning file=$($MyInvocation.ScriptName),line=$($MyInvocation.ScriptLineNumber),title=No License Key::A device detection license was not provided, so On-Premise Data file and 51Degrees.csv will not be downloaded."
 }
 
-# We can just symlink these
-New-Item -ItemType SymbolicLink -Force -Target "$assets/51Degrees-LiteV4.1.hash" -Path "$deviceDetectionData/51Degrees-LiteV4.1.hash"
-New-Item -ItemType SymbolicLink -Force -Target "$assets/51Degrees-LiteV4.1.hash" -Path "$RepoName/fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/onpremise/gettingstarted_web/51Degrees-LiteV4.1.hash"
-New-Item -ItemType SymbolicLink -Force -Target "$assets/20000 Evidence Records.yml" -Path "$deviceDetectionData/20000 Evidence Records.yml"
-New-Item -ItemType SymbolicLink -Force -Target "$assets/20000 User Agents.csv" -Path "$deviceDetectionData/20000 User Agents.csv"
+./steps/fetch-assets.ps1 -DeviceDetection:$DeviceDetection -DeviceDetectionUrl:$DeviceDetectionUrl -CsvUrl:$CsvUrl -Assets $assets
+foreach ($asset in $assets) {
+    switch -Exact -CaseSensitive ($asset) {
+        'TAC-HashV41.hash' {New-Item -ItemType SymbolicLink -Force -Target "$PWD/assets/$_" -Path "$deviceDetectionData/Enterprise-HashV41.hash"}
+        '51Degrees.csv' {New-Item -ItemType SymbolicLink -Force -Target "$PWD/assets/$_" -Path "$PSScriptRoot/../fiftyone_devicedetection_cloud/tests/$_"}
+        '51Degrees-LiteV4.1.hash' {New-Item -ItemType SymbolicLink -Force -Target "$PWD/assets/$_" -Path "$deviceDetectionData/$_", "$PSScriptRoot/../fiftyone_devicedetection_examples/src/fiftyone_devicedetection_examples/onpremise/gettingstarted_web/$_"}
+        default {New-Item -ItemType SymbolicLink -Force -Target "$PWD/assets/$_" -Path "$deviceDetectionData/$_"}
+    }
+}
