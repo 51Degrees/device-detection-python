@@ -116,7 +116,9 @@ class OfflineProcessing():
                 # Pass the record to the pipeline as evidence so that it can be analyzed
                 headers = {}
                 for key in evidence:
-                    headers[f"header.{key}"] = evidence[key]
+                    # Convert to string - YAML may parse values like ?1 as booleans
+                    # Keys already have header. prefix in the YAML file
+                    headers[key] = str(evidence[key])
 
                 self.analyseEvidence(headers, pipeline, output, yaml)
         except BaseException as err:

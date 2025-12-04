@@ -5,7 +5,7 @@
                 "elementName": "DeviceDetectionOnPremise",
                 "elementPath": "fiftyone_devicedetection_onpremise.devicedetection_onpremise",
                 "elementParameters": {
-                    "data_file_path": "51Degrees-LiteV4.1.hash",
+                    "data_file_path": "/Users/eugene/projects/51degrees/51drepos/assets/Enterprise-HashV41.hash",
                     "auto_update": false,
                     "performance_profile": "LowMemory",
                     "licence_keys": ""
