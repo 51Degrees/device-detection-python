@@ -155,6 +155,14 @@ class OfflineProcessing():
         values["device.platformversion"] = ExampleUtils.get_human_readable(device, "platformversion")
         values["device.browsername"] = ExampleUtils.get_human_readable(device, "browsername")
         values["device.browserversion"] = ExampleUtils.get_human_readable(device, "browserversion")
+        values["device.tac"] = ExampleUtils.get_human_readable(device, "tac")
+        values["device.devicetype"] = ExampleUtils.get_human_readable(device, "devicetype")
+        values["device.hardwarevendor"] = ExampleUtils.get_human_readable(device, "hardwarevendor")
+        values["device.hardwarename"] = ExampleUtils.get_human_readable(device, "hardwarename")
+        values["device.hardwaremodel"] = ExampleUtils.get_human_readable(device, "hardwaremodel")
+        values["device.nativedevice"] = ExampleUtils.get_human_readable(device, "nativedevice")
+        values["device.nativename"] = ExampleUtils.get_human_readable(device, "nativename")
+        values["device.nativemodel"] = ExampleUtils.get_human_readable(device, "nativemodel")
         # DeviceId is a unique identifier for the combination of hardware, operating
         # system, browser and crawler that has been detected.
         # Our device detection solution uses machine learning to find the optimal
