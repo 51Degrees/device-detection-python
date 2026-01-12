@@ -96,7 +96,7 @@ class GettingStartedWeb():
 
     def run(self):
         
-        GettingStartedWeb.app.run()
+        GettingStartedWeb.app.run(port=5001)
 
     # First we make a JSON route that will be called from the client side and will return
     # a JSON encoded property database using any additional evidence provided by the client 

@@ -116,7 +116,9 @@ class OfflineProcessing():
                 # Pass the record to the pipeline as evidence so that it can be analyzed
                 headers = {}
                 for key in evidence:
-                    headers[f"header.{key}"] = evidence[key]
+                    # Convert to string - YAML may parse values like ?1 as booleans
+                    # Keys already have header. prefix in the YAML file
+                    headers[key] = str(evidence[key])
 
                 self.analyseEvidence(headers, pipeline, output, yaml)
         except BaseException as err:
@@ -153,6 +155,14 @@ class OfflineProcessing():
         values["device.platformversion"] = ExampleUtils.get_human_readable(device, "platformversion")
         values["device.browsername"] = ExampleUtils.get_human_readable(device, "browsername")
         values["device.browserversion"] = ExampleUtils.get_human_readable(device, "browserversion")
+        values["device.tac"] = ExampleUtils.get_human_readable(device, "tac")
+        values["device.devicetype"] = ExampleUtils.get_human_readable(device, "devicetype")
+        values["device.hardwarevendor"] = ExampleUtils.get_human_readable(device, "hardwarevendor")
+        values["device.hardwarename"] = ExampleUtils.get_human_readable(device, "hardwarename")
+        values["device.hardwaremodel"] = ExampleUtils.get_human_readable(device, "hardwaremodel")
+        values["device.nativedevice"] = ExampleUtils.get_human_readable(device, "nativedevice")
+        values["device.nativename"] = ExampleUtils.get_human_readable(device, "nativename")
+        values["device.nativemodel"] = ExampleUtils.get_human_readable(device, "nativemodel")
         # DeviceId is a unique identifier for the combination of hardware, operating
         # system, browser and crawler that has been detected.
         # Our device detection solution uses machine learning to find the optimal

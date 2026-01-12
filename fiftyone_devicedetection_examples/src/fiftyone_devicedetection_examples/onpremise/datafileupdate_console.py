@@ -293,7 +293,7 @@ class DataFileUpdateConsole():
 			# Watch the data file on disk and refresh the engine
 			# as soon as that file is updated.
 			file_system_watcher=True,
-			data_update_product_type="V4TAC",
+			data_update_product_type="V4Enterprise",
 			).add_logger(logger).build()
 
 
