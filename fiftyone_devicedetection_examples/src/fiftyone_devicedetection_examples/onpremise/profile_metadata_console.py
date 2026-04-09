@@ -96,84 +96,89 @@ class ProfileMetadataConsole():
 
         # Get the HardwarePlatform component to filter only hardware profiles
         components = metadata.getComponents()
-        hardware_component = None
+        hardware_component_name = None
         output("Available components:")
         for i in range(components.getSize()):
             comp = components.getByIndex(i)
             output(f"  - {comp.getName()}")
             if comp.getName() == "HardwarePlatform":
-                hardware_component = comp
+                hardware_component_name = comp.getName()
 
-        if hardware_component is None:
+        if hardware_component_name is None:
             output("Warning: Could not find HardwarePlatform component, processing all profiles")
 
-        # Iterate through all profiles and extract values
-        results = []
+        # Iterate through all profiles and stream results immediately
         hardware_profile_count = 0
 
-        output("Processing profiles...")
+        # Open output destination - file or stdout
+        out_stream = open(output_file, 'w') if output_file else sys.stdout
 
-        for i in range(profile_count):
-            if i > 0 and i % 5000 == 0:
-                output(f"  Processed {i}/{profile_count} profiles, found {hardware_profile_count} hardware profiles...")
+        try:
+            # Write JSON array opening bracket
+            out_stream.write("[\n")
 
-            profile = profiles.getByIndex(i)
+            output("Processing profiles...")
 
-            # Check if this profile belongs to HardwarePlatform component
-            component = metadata.getComponentForProfile(profile)
-            if hardware_component and component.getName() != hardware_component.getName():
-                continue
+            for i in range(profile_count):
+                if i > 0 and i % 1000 == 0:
+                    output(f"  Processed {i}/{profile_count} profiles, found {hardware_profile_count} hardware profiles...")
 
-            hardware_profile_count += 1
+                profile = profiles.getByIndex(i)
 
-            # Apply limit to hardware profiles if specified
-            if limit and hardware_profile_count > limit:
-                break
+                # Check if this profile belongs to HardwarePlatform component
+                if hardware_component_name is not None:
+                    component = metadata.getComponentForProfile(profile)
+                    if component.getName() != hardware_component_name:
+                        continue
 
-            # Get values for this profile
-            values = metadata.getValuesForProfile(profile)
+                # Apply limit to hardware profiles if specified
+                if limit and hardware_profile_count >= limit:
+                    break
 
-            # Build a record for this profile
-            record = {
-                "profileId": profile.getProfileId()
-            }
+                hardware_profile_count += 1
 
-            # Extract each target property value
-            # Multi-value properties will be accumulated into lists
-            for j in range(values.getSize()):
-                value = values.getByIndex(j)
-                prop = metadata.getPropertyForValue(value)
-                prop_name = prop.getName().lower()
+                # Get values for this profile
+                values = metadata.getValuesForProfile(profile)
 
-                if prop_name in self.TARGET_PROPERTIES:
-                    value_str = value.getName()
+                # Build a record for this profile
+                record = {
+                    "profileId": profile.getProfileId()
+                }
 
-                    if prop_name in self.MULTI_VALUE_PROPERTIES:
-                        # Accumulate multi-value properties into a list
-                        if prop_name not in record:
-                            record[prop_name] = []
-                        record[prop_name].append(value_str)
-                    else:
-                        # Single-value property
-                        record[prop_name] = value_str
+                # Extract each target property value
+                # Multi-value properties will be accumulated into lists
+                for j in range(values.getSize()):
+                    value = values.getByIndex(j)
+                    prop = metadata.getPropertyForValue(value)
+                    prop_name = prop.getName().lower()
 
-            results.append(record)
+                    if prop_name in self.TARGET_PROPERTIES:
+                        value_str = value.getName()
 
-        output(f"Extracted {len(results)} hardware profiles")
+                        if prop_name in self.MULTI_VALUE_PROPERTIES:
+                            # Accumulate multi-value properties into a list
+                            if prop_name not in record:
+                                record[prop_name] = []
+                            record[prop_name].append(value_str)
+                        else:
+                            # Single-value property
+                            record[prop_name] = value_str
 
-        if output_file:
-            # Write results to JSON file
-            with open(output_file, 'w') as f:
-                json.dump(results, f, indent=2)
-            output(f"Results written to: {output_file}")
+                # Write comma separator before all records except the first
+                if hardware_profile_count > 1:
+                    out_stream.write(",\n")
+                out_stream.write(json.dumps(record, indent=2))
+                out_stream.flush()
 
-            # Print sample of results
-            output("\nSample output (first 5 profiles):")
-            for record in results[:5]:
-                output(json.dumps(record, indent=2))
-        else:
-            # Output JSON to stdout
-            print(json.dumps(results, indent=2))
+            # Close the JSON array
+            out_stream.write("\n]\n")
+
+            output(f"Extracted {hardware_profile_count} hardware profiles")
+            if output_file:
+                output(f"Results written to: {output_file}")
+        finally:
+            if output_file and out_stream:
+                out_stream.close()
 
 
 def main(argv):
