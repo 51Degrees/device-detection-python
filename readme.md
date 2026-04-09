@@ -215,4 +215,7 @@ Please see a full list of provided cloud and onpremise examples below.
 | performance                           | How to configure the various performance options and run a simple performance test. |
 | useragentclienthints-web              | Legacy example. Retained for the associated automated tests. See GettingStarted-Web instead. |
 | datafileupdate_console                | How to automatically update data file |
+| profile_metadata_console              | How to iterate through all hardware profiles in a data file and extract device properties (TAC, HardwareVendor, HardwareName, etc.) via the SWIG metadata API. |
+| csv_profile_metadata                  | How to read hardware profile data from the 51Degrees HardwarePlatform CSV export file and output selected properties as JSON. Much faster than the metadata API approach. |
+| shareusage                            | How to use the ShareUsage element directly to send evidence data to 51Degrees for usage sharing. |
 
