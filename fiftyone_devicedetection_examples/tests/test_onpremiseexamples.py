@@ -71,6 +71,21 @@ class DeviceDetectionExampleTests(unittest.TestCase):
                     example.run(self.data_file, input, self.logger, output)
             os.remove("./offlineprocessing-output.yml")
 
+    def test_onpremise_offline_processing_with_tabs(self):
+        """Test that offline processing handles tab characters in evidence YAML."""
+        from io import StringIO
+        evidence_with_tabs = (
+            "---\n"
+            "header.user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\tChrome 98.0\n"
+            "---\n"
+            "header.user-agent: Mozilla/5.0 (Linux; Android 11; SM-G991B)\t\tChrome/91.0.4472.120\n"
+        )
+        example = OfflineProcessing()
+        output = StringIO()
+        example.run(self.data_file, StringIO(evidence_with_tabs), self.logger, output)
+        result = output.getvalue()
+        self.assertIn("device.ismobile", result)
+
     def test_onpremise_performance(self):
         # Only run if environment variable set
         if "run_performance_tests" in os.environ:

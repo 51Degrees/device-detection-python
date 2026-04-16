@@ -101,7 +101,10 @@ class OfflineProcessing():
 
         records = 0
         yaml = YAML()
-        yaml_data = yaml.load_all(evidence_yaml)
+        # Replace tab characters as they are not valid in unquoted YAML values
+        # and some evidence files contain them in user-agent strings.
+        content = evidence_yaml.read().replace('\t', ' ')
+        yaml_data = yaml.load_all(content)
         
         try:
             # Keep going as long as we have more document records.
