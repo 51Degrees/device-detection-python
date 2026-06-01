@@ -81,6 +81,7 @@ from fiftyone_devicedetection.devicedetection_pipelinebuilder import DeviceDetec
 from fiftyone_pipeline_core.logger import Logger
 from fiftyone_pipeline_core.web import webevidence, set_response_header
 import json
+import os
 import sys
 
 class GettingStartedWeb():
@@ -99,15 +100,23 @@ class GettingStartedWeb():
             # used by the device detection API when it runs.
             "enable_cookies": True
         }
+        pipeline_settings = {
+            "resource_key": resource_key,
+            "javascript_builder_settings": javascript_builder_settings,
+        }
+        # If a cloud endpoint is set in the environment, point the pipeline at it.
+        cloud_endpoint = ExampleUtils.get_cloud_endpoint()
+        if cloud_endpoint:
+            pipeline_settings["cloud_endpoint"] = cloud_endpoint
+
         GettingStartedWeb.pipeline = DeviceDetectionPipelineBuilder(
-            resource_key = resource_key, 
-            javascript_builder_settings = javascript_builder_settings).add_logger(logger).build()
+            **pipeline_settings).add_logger(logger).build()
         
         return self
 
     def run(self):
 
-        GettingStartedWeb.app.run()
+        GettingStartedWeb.app.run(port=int(os.environ.get("PORT", 5000)))
 
     # First we make a JSON route that will be called from the client side and will return
     # a JSON encoded property database using any additional evidence provided by the client 
