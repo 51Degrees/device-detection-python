@@ -200,7 +200,7 @@ Please see a full list of provided cloud and onpremise examples below.
 | nativemodellookup_console                      | How to get device details from a native model name using the 51Degrees cloud service. |
 | failuretomatch                         | Demonstrate the features that are available when a match cannot be found. |
 | metadata_console                       | How to access the meta-data for the device detection data model. For example, information about the  available properties. |
-| useragentclienthints-web               | Legacy example. Retained for the associated automated tests. See GettingStarted-Web instead. |
+| useragentclienthints_web               | How to use the 51Degrees Cloud service to perform device detection from User-Agent Client Hints, including the Accept-CH header round trip, in a simple Flask website. |
 
 ### On-Premise
 
@@ -213,7 +213,7 @@ Please see a full list of provided cloud and onpremise examples below.
 | metadata_console                       | How to access the meta-data for the device detection data model. For example, information about the  available properties. |
 | offlineprocessing                    | Example showing how to ingest a file containing data from web requests and perform detection against the entries. |
 | performance                           | How to configure the various performance options and run a simple performance test. |
-| useragentclienthints-web              | Legacy example. Retained for the associated automated tests. See GettingStarted-Web instead. |
+| useragentclienthints_web              | How to use the 51Degrees on-premise device detection API to perform device detection from User-Agent Client Hints, including the Accept-CH header round trip, in a simple Flask website. |
 | datafileupdate_console                | How to automatically update data file |
 | profile_metadata_console              | How to iterate through all hardware profiles in a data file and extract device properties (TAC, HardwareVendor, HardwareName, etc.) via the SWIG metadata API. |
 | csv_profile_metadata                  | How to read hardware profile data from the 51Degrees HardwarePlatform CSV export file and output selected properties as JSON. Much faster than the metadata API approach. |
