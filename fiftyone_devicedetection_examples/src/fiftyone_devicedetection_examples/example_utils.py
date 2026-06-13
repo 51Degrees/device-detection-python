@@ -190,7 +190,7 @@ class ExampleUtils:
                 "https://github.com/51Degrees/device-detection-data. " +
                 "Find out about the Enterprise data file, which " +
                 "includes automatic updates, on our pricing page: " +
-                "https://51degrees.com/pricing")
+                "https://51degrees.com/pricing?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-example_utils.py&utm_term=data-file-age-warning")
 
         if ExampleUtils.get_data_file_tier(engine) == "Lite":
             logger.log("warning",
@@ -198,4 +198,4 @@ class ExampleUtils:
                 "data file. This is used for illustration, and " +
                 "has limited accuracy and capabilities. Find " +
                 "out about the Enterprise data file on our " +
-                "pricing page: https://51degrees.com/pricing")
+                "pricing page: https://51degrees.com/pricing?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-example_utils.py&utm_term=lite-data-file")

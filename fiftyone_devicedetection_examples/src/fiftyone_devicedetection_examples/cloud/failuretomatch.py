@@ -24,7 +24,7 @@ from fiftyone_devicedetection_cloud.devicedetection_cloud_pipelinebuilder import
 
 # First create the device detection pipeline with the desired settings.
 
-# You need to create a resource key at https://configure.51degrees.com
+# You need to create a resource key at https://configure.51degrees.com?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-cloud-failuretomatch.py&utm_term=top
 # and paste it into the code, replacing !!YOUR_RESOURCE_KEY!! below.
 # Alternatively, add a resource_key environment variable
 import os
@@ -36,9 +36,9 @@ else:
 if resource_key == "!!YOUR_RESOURCE_KEY!!":
     print("""
     You need to create a resource key at
-    https://configure.51degrees.com and paste it into the code,
+    https://configure.51degrees.com?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-cloud-failuretomatch.py&utm_term=resource-key-required and paste it into the code,
     'replacing !!YOUR_RESOURCE_KEY!!
-    To include the properties used in this example, go to https://configure.51degrees.com/bxXqZhLT
+    To include the properties used in this example, go to https://configure.51degrees.com/bxXqZhLT?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-cloud-failuretomatch.py&utm_term=resource-key-required
     """)
 else:
 
