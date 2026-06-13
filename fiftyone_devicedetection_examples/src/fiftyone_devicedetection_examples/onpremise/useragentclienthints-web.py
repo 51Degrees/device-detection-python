@@ -186,7 +186,7 @@ def server():
     # requested. So set whatever headers are required by the browser in
     # order to return the evidence needed by the pipeline.
     # More info on this can be found at
-    # https://51degrees.com/blog/user-agent-client-hints
+    # https://51degrees.com/blog/user-agent-client-hints?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-onpremise-useragentclienthints-web.py&utm_term=server
 
     response = set_response_header(flowdata, response)
 

@@ -24,7 +24,7 @@ from flask.helpers import make_response
 from fiftyone_devicedetection_cloud.devicedetection_cloud_pipelinebuilder import DeviceDetectionCloudPipelineBuilder
 from fiftyone_pipeline_core.web import webevidence, set_response_header
 
-# You need to create a resource key at https://configure.51degrees.com
+# You need to create a resource key at https://configure.51degrees.com?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-cloud-useragentclienthints-web.py&utm_term=top
 # and paste it into the code, replacing !!YOUR_RESOURCE_KEY!! below.
 # Alternatively, add a resource_key environment variable
 import os
@@ -36,9 +36,9 @@ else:
 if resource_key == "!!YOUR_RESOURCE_KEY!!":
     print("""
     You need to create a resource key at
-    https://configure.51degrees.com and paste it into the code,
+    https://configure.51degrees.com?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-cloud-useragentclienthints-web.py&utm_term=resource-key-required and paste it into the code,
     'replacing !!YOUR_RESOURCE_KEY!!
-    To include the properties used in this example, go to https://configure.51degrees.com/
+    To include the properties used in this example, go to https://configure.51degrees.com/?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-cloud-useragentclienthints-web.py&utm_term=resource-key-required
     """)
 else:
 
@@ -198,7 +198,7 @@ else:
         # requested. So set whatever headers are required by the browser in
         # order to return the evidence needed by the pipeline.
         # More info on this can be found at
-        # https://51degrees.com/blog/user-agent-client-hints
+        # https://51degrees.com/blog/user-agent-client-hints?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-cloud-useragentclienthints-web.py&utm_term=server
 
         response = set_response_header(flowdata, response)
 
