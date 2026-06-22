@@ -42,6 +42,9 @@
                     "header_blacklist": []
                 }
             }
-        ]
+        ],
+        "BuildParameters": {
+            "suppress_process_exceptions": true
+        }
     }
 }

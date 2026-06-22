@@ -65,6 +65,10 @@ class UserAgentClientHintsWeb():
     app = Flask(__name__)
 
     def build(self, config, logger):
+        # 'suppress_process_exceptions' is set to True in config.json
+        # (PipelineOptions.BuildParameters) so a device-detection failure degrades
+        # gracefully instead of returning a 500 for every request. Use False while
+        # developing to surface mistakes loudly.
         UserAgentClientHintsWeb.pipeline = PipelineBuilder().add_logger(logger).build_from_configuration(config)
         return self
 
