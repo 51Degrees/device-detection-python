@@ -64,6 +64,10 @@ class UserAgentClientHintsWeb():
         # header use the SetHeaderBrowserAccept-CH property.
         pipeline_settings = {
             "resource_key": resource_key,
+            # Set to True so a device-detection failure degrades gracefully instead of
+            # returning a 500 for every request. Use False while developing to surface
+            # mistakes loudly. Errors are still recorded on flowdata.errors / the logger.
+            "suppress_process_exceptions": True,
         }
         # If a cloud endpoint is set in the environment, point the pipeline at it.
         cloud_endpoint = ExampleUtils.get_cloud_endpoint()

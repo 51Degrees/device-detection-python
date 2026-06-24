@@ -91,6 +91,10 @@ class GettingStartedWeb():
     def build(self, config, logger):
         # Here we add some callback settings for the page to make a request with extra evidence from the client side, in this case the Flask /json route we will make below
 
+        # 'suppress_process_exceptions' is set to True in config.json
+        # (PipelineOptions.BuildParameters) so a device-detection failure degrades
+        # gracefully instead of returning a 500 for every request. Use False while
+        # developing to surface mistakes loudly.
         GettingStartedWeb.pipeline = PipelineBuilder().add_logger(logger).build_from_configuration(config)
         return self
 
