@@ -504,7 +504,12 @@ class DeviceDetectionTests(unittest.TestCase):
         fd.process()
 
         self.assertIsInstance(fd.device.useragents.value(), list)
-        self.assertEqual(len(fd.device.useragents.value()), 1)
+        # Since the detection result shape was unified in device-detection-cxx
+        # (issue #362), a single User-Agent produces one result - and so one
+        # matched User-Agent - per component the engine populates, rather than
+        # exactly one overall. The number depends on the data file, so assert
+        # that at least one is returned.
+        self.assertGreaterEqual(len(fd.device.useragents.value()), 1)
 
     def test_value_types(self):
         """!
