@@ -35,3 +35,12 @@ class CloudGettingStartedWebTests(flask_unittest.ClientTestCase):
     def test_cloud_getting_started_web(self, client):
         response = client.get('/')
         self.assertEqual(200, response.status_code)
+
+    # The page references the client-side script by the '/51Degrees.core.js' name used
+    # by the web integrations in the other Pipeline APIs, so check that the route
+    # returns the bundle rather than, for example, falling through to the page.
+    def test_cloud_getting_started_web_core_js(self, client):
+        response = client.get('/51Degrees.core.js')
+        self.assertEqual(200, response.status_code)
+        self.assertEqual("application/x-javascript", response.headers["Content-Type"])
+        self.assertIn(b"fiftyoneDegreesManager", response.data)

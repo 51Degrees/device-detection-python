@@ -145,6 +145,36 @@ class GettingStartedWeb():
 
         return json.dumps(flowdata.jsonbundler.json)
 
+    # Next we serve the client-side JavaScript from its own route. The other
+    # Pipeline APIs ship a web integration that intercepts '/51Degrees.core.js'
+    # for this, so the page can reference the script by that name. There is no
+    # such integration for Flask, so the example wires up the route itself.
+
+    @staticmethod
+    @app.route('/51Degrees.core.js')
+    def core_js():
+
+        # Create the flowdata object for the JavaScript route
+        flowdata = GettingStartedWeb.pipeline.create_flowdata()
+
+        # Add any information from the request (headers, cookies and additional
+        # client side provided information). Query parameters are included, so
+        # the per-request 'fod-js-enable-cookies' override is picked up here and
+        # applied by the JavaScriptBuilder engine.
+
+        flowdata.evidence.add_from_dict(webevidence(request))
+
+        # Process the flowdata
+
+        flowdata.process()
+
+        # Return the JavaScript from the JavaScriptBuilder engine
+
+        response = make_response(flowdata.javascriptbuilder.javascript)
+        response.headers["Content-Type"] = "application/x-javascript"
+
+        return response
+
     # In the main route we dynamically update the screen's device property display
     # using the above JSON route
 

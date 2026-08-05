@@ -153,18 +153,13 @@
 </div>
 
 {#
-    This script is constructed by the fiftyone_pipeline_core package.
-    It adds a JavaScript include for 51Degrees.core.js.
-    The 51Degrees pipeline will dynamically generate JavaScript, which includes a
-    JSON representation of the contents of flow data, i.e. the results from device detection.
-    That script raises the 'complete' event with the refined flow data. The shared
-    examples.js helper subscribes to it and appends a results table into #content.
+    51Degrees.core.js is built by the fiftyone_pipeline_core package and served by the
+    matching route in app.py. It includes a JSON representation of the contents of flow
+    data, i.e. the results from device detection, and raises the 'complete' event with the
+    refined flow data. The shared examples.js helper subscribes to it and appends a results
+    table into #content.
 #}
-{% autoescape false %}
-<script>
-{{ data.javascriptbuilder.javascript }}
-</script>
-{% endautoescape %}
+<script src="/51Degrees.core.js"></script>
 
 <script src="{{ url_for('static', filename='js/examples.min.js') }}"></script>
 <script>
