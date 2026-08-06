@@ -131,6 +131,9 @@
                 <tr class="c-eg-table__row c-eg-table__row--alt"><td class="c-eg-table__cell c-eg-table__cell--key">Browser Version:</td><td class="c-eg-table__cell">{{ utils.get_human_readable(data.device, "browserversion") }}</td></tr>
                 <tr class="c-eg-table__row"><td class="c-eg-table__cell c-eg-table__cell--key">Screen width (pixels):</td><td class="c-eg-table__cell">{{ utils.get_human_readable(data.device, "screenpixelswidth") }}</td></tr>
                 <tr class="c-eg-table__row c-eg-table__row--alt"><td class="c-eg-table__cell c-eg-table__cell--key">Screen height (pixels):</td><td class="c-eg-table__cell">{{ utils.get_human_readable(data.device, "screenpixelsheight") }}</td></tr>
+                {# The device id identifies the matched hardware, platform and browser profiles,
+                   so it is the compact form of everything else in this table. #}
+                <tr class="c-eg-table__row"><td class="c-eg-table__cell c-eg-table__cell--key">Device Id:</td><td class="c-eg-table__cell">{{ utils.get_human_readable(data.device, "deviceid") }}</td></tr>
             </tbody>
         </table>
 
@@ -153,18 +156,13 @@
 </div>
 
 {#
-    This script is constructed by the fiftyone_pipeline_core package.
-    It adds a JavaScript include for 51Degrees.core.js.
-    The 51Degrees pipeline will dynamically generate JavaScript, which includes a
-    JSON representation of the contents of flow data, i.e. the results from device detection.
-    That script raises the 'complete' event with the refined flow data. The shared
-    examples.js helper subscribes to it and appends a results table into #content.
+    51Degrees.core.js is built by the fiftyone_pipeline_core package and served by the
+    matching route in app.py. It includes a JSON representation of the contents of flow
+    data, i.e. the results from device detection, and raises the 'complete' event with the
+    refined flow data. The shared examples.js helper subscribes to it and appends a results
+    table into #content.
 #}
-{% autoescape false %}
-<script>
-{{ data.javascriptbuilder.javascript }}
-</script>
-{% endautoescape %}
+<script src="/51Degrees.core.js"></script>
 
 <script src="{{ url_for('static', filename='js/examples.min.js') }}"></script>
 <script>
