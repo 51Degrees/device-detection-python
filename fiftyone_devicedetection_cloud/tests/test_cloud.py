@@ -29,8 +29,29 @@ from fiftyone_devicedetection_cloud.devicedetection_cloud_pipelinebuilder import
 
 from fiftyone_devicedetection_cloud.devicedetection_cloud import DeviceDetectionCloud
 
-if not "resource_key" in os.environ:
-    print("To run the cloud tests, please set a valid 51Degrees cloud resource key as the resource_key environment variable. e.g `export resource_key=MYresource_key` on the command line")
+# Resource key environment variables follow the 51Degrees convention, which
+# is that every one of them starts with "_51DEGREES_RESOURCE_KEY". The name
+# used before the convention was adopted is still read, so an existing setup
+# keeps working.
+RESOURCE_KEY_ENV_VAR = "_51DEGREES_RESOURCE_KEY"
+LEGACY_RESOURCE_KEY_ENV_VAR = "resource_key"
+
+MISSING_KEY_MESSAGE = (
+    "No resource key found, so the tests that call the cloud service "
+    f"cannot run. Set the environment variable '{RESOURCE_KEY_ENV_VAR}' "
+    f"(the older name '{LEGACY_RESOURCE_KEY_ENV_VAR}' is still read). "
+    "Create a resource key for free at "
+    "https://configure.51degrees.com?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_cloud-tests-test_cloud.py&utm_term=resource-key-required")
+
+
+def get_resource_key():
+    """!
+    The resource key from the environment, or None when neither the aligned
+    nor the older variable is set.
+    """
+
+    return (os.environ.get(RESOURCE_KEY_ENV_VAR)
+            or os.environ.get(LEGACY_RESOURCE_KEY_ENV_VAR))
 
 mobile_ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_2 like Mac OS X) AppleWebKit/604.4.7 (KHTML, like Gecko) Mobile/15C114"
 
@@ -38,15 +59,19 @@ cloud_request_origin_test_params = [('', True), ('test.com', True), ('51Degrees.
 
 class DeviceDetectionTests(unittest.TestCase):
 
+    def setUp(self):
+        self.resource_key = get_resource_key()
+
+        if not self.resource_key:
+            self.skipTest(MISSING_KEY_MESSAGE)
+
+
     def test_pipeline_builder_cloud_engine_init(self):
         """!
         Tests whether the device detection pipeline builder adds the correct engines when initialised with a resource key
         """
 
-        if not "resource_key" in os.environ:
-            return
-
-        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = os.environ['resource_key']).build()
+        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = self.resource_key).build()
 
         self.assertTrue(pipeline.flow_elements[0].datakey == "cloud")
         self.assertTrue(pipeline.flow_elements[1].datakey == "device")
@@ -56,10 +81,7 @@ class DeviceDetectionTests(unittest.TestCase):
         Tests whether a properties list is created on the cloud engine
         """
         
-        if not "resource_key" in os.environ:
-            return
-
-        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = os.environ['resource_key']).build()
+        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = self.resource_key).build()
 
         properties = pipeline.flow_elements[1].get_properties()
 
@@ -70,10 +92,7 @@ class DeviceDetectionTests(unittest.TestCase):
         Check property lookup works
         """
 
-        if not "resource_key" in os.environ:
-            return
-
-        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = os.environ['resource_key']).build()
+        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = self.resource_key).build()
 
         fd = pipeline.create_flowdata()
 
@@ -89,7 +108,7 @@ class DeviceDetectionTests(unittest.TestCase):
         not available in any datafile
         """
 
-        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = os.environ['resource_key']).build()
+        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = self.resource_key).build()
 
         fd = pipeline.create_flowdata()
 
@@ -118,7 +137,7 @@ class DeviceDetectionTests(unittest.TestCase):
 
         start = time.time()
 
-        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = os.environ['resource_key']).build()
+        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = self.resource_key).build()
 
         fd = pipeline.create_flowdata()
 
@@ -144,7 +163,7 @@ class DeviceDetectionTests(unittest.TestCase):
         not available in cloud
         """
 
-        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = os.environ['resource_key']).build()
+        pipeline = DeviceDetectionCloudPipelineBuilder(resource_key = self.resource_key).build()
 
         fd = pipeline.create_flowdata()
 

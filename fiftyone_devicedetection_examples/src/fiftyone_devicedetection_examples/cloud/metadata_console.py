@@ -43,12 +43,12 @@
 # @include{doc} example-require-resourcekey.txt
 # 
 # Required PyPi Dependencies:
-# - [fiftyone_devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
+# - [fiftyone_devicedetection_cloud](https://pypi.org/project/fiftyone-devicedetection-cloud/)
 # 
 
 from pathlib import Path
 import sys
-from fiftyone_devicedetection.devicedetection_pipelinebuilder import DeviceDetectionPipelineBuilder
+from fiftyone_devicedetection_cloud.devicedetection_cloud_pipelinebuilder import DeviceDetectionCloudPipelineBuilder
 from fiftyone_pipeline_core.logger import Logger
 from fiftyone_pipeline_core.basiclist_evidence_keyfilter import BasicListEvidenceKeyFilter
 from fiftyone_devicedetection_examples.example_utils import ExampleUtils
@@ -60,7 +60,7 @@ colReset = "\u001b[0m"
 class MetaDataConsole():
     def run(self, resource_key, logger, output):
 
-        pipeline = DeviceDetectionPipelineBuilder(
+        pipeline = DeviceDetectionCloudPipelineBuilder(
             resource_key = resource_key).add_logger(logger).build()
 
         self.outputProperties(pipeline.get_element("device"), output)

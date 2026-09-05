@@ -34,9 +34,15 @@ class ExampleUtils:
     # be displayed.
     DATA_FILE_AGE_WARNING = 30
 
-    # The default environment variable used to get the resource key
-    # to use when running examples.
-    RESOURCE_KEY_ENV_VAR = "resource_key"
+    # The environment variable used to get the resource key to use when
+    # running examples. This follows the 51Degrees convention that every
+    # resource key variable starts with "_51DEGREES_RESOURCE_KEY".
+    RESOURCE_KEY_ENV_VAR = "_51DEGREES_RESOURCE_KEY"
+
+    # The environment variable this repository used before the convention
+    # above was adopted. It is still read, so an existing setup keeps
+    # working, but new setups should use RESOURCE_KEY_ENV_VAR.
+    LEGACY_RESOURCE_KEY_ENV_VAR = "resource_key"
 
     ENDPOINT_ENV_VAR = "cloud_endpoint"
 
@@ -72,18 +78,90 @@ class ExampleUtils:
 
     @staticmethod
     def get_human_readable(device, property):
+        """!
+        Format a property value for display.
+
+        A property can be unavailable for three reasons, and each one reads
+        differently so the person running the example can tell them apart.
+        The property may have a value, it may have no value with the cloud
+        service giving a reason (most often that the resource key is not
+        entitled to it), or it may not be in the results at all.
+        """
+
         try:
             value = device.get(property)
         except Exception:
-            return "Property not found in data file"
-        if value and value.has_value():
-            return value.value()
-        else:
-            return f"Unknown ({value.no_value_message()})"
+            value = None
+
+        if value is None:
+            return (f"Unknown (the property '{property}' is not in the "
+                    "results, so the current resource key does not "
+                    "include it)")
+
+        if value.has_value():
+            result = value.value()
+            if isinstance(result, list):
+                return ", ".join(str(item) for item in result)
+            return result
+
+        reason = value.no_value_message()
+
+        if not reason:
+            return (f"Unknown (the cloud service returned no value for "
+                    f"'{property}' and gave no reason)")
+
+        return f"Unknown ({reason})"
+
+    @staticmethod
+    def get_profiles(hardware):
+        """!
+        Read the list of hardware profiles from the "hardware" element data.
+
+        An empty list is returned when the resource key has no access to the
+        hardware aspect at all, because reading a property that is not there
+        raises rather than returning an empty list.
+        """
+
+        try:
+            profiles = hardware.profiles
+        except Exception:
+            return []
+
+        return profiles if isinstance(profiles, list) else []
+
+    @staticmethod
+    def get_no_profiles_message():
+        """!
+        The line printed when a lookup returned no device profiles at all.
+        """
+
+        return ("\tNo device profiles were returned. The current resource "
+                "key does not include the hardware properties this example "
+                "needs. See "
+                "https://51degrees.com/pricing?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-example_utils.py&utm_term=no-profiles")
 
     @staticmethod
     def get_resource_key():
-        return ExampleUtils.__get_env_variable(ExampleUtils.RESOURCE_KEY_ENV_VAR)
+        key = ExampleUtils.__get_env_variable(ExampleUtils.RESOURCE_KEY_ENV_VAR)
+
+        if not key:
+            key = ExampleUtils.__get_env_variable(
+                ExampleUtils.LEGACY_RESOURCE_KEY_ENV_VAR)
+
+        return key
+
+    @staticmethod
+    def get_missing_resource_key_message():
+        """!
+        The message shown when no resource key is set, naming the variable
+        that was wanted rather than leaving the reader to guess.
+        """
+
+        return (f"No resource key found. Set the environment variable "
+                f"'{ExampleUtils.RESOURCE_KEY_ENV_VAR}' (the older name "
+                f"'{ExampleUtils.LEGACY_RESOURCE_KEY_ENV_VAR}' is still "
+                "read). Create a resource key for free at "
+                "https://configure.51degrees.com?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-example_utils.py&utm_term=resource-key-required")
 
     @staticmethod
     def get_cloud_endpoint():

@@ -36,12 +36,11 @@
 # @include{doc} example-require-resourcekey.txt
 #
 # Required PyPi Dependencies:
-# - [fiftyone_devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
+# - [fiftyone_devicedetection_cloud](https://pypi.org/project/fiftyone-devicedetection-cloud/)
 
 import json5
 from pathlib import Path
 import sys
-from fiftyone_devicedetection.devicedetection_pipelinebuilder import DeviceDetectionPipelineBuilder
 from fiftyone_pipeline_core.logger import Logger
 from fiftyone_pipeline_core.pipelinebuilder import PipelineBuilder
 from fiftyone_devicedetection_examples.example_utils import ExampleUtils

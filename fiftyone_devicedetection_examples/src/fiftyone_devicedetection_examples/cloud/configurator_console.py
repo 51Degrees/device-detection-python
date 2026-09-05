@@ -22,7 +22,7 @@
 
 import sys
 from fiftyone_pipeline_core.logger import Logger
-from fiftyone_devicedetection.devicedetection_pipelinebuilder import DeviceDetectionPipelineBuilder
+from fiftyone_devicedetection_cloud.devicedetection_cloud_pipelinebuilder import DeviceDetectionCloudPipelineBuilder
 from fiftyone_devicedetection_examples.example_utils import ExampleUtils
 
 # This example is displayed at the end of the [Configurator](https://configure.51degrees.com/?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-cloud-configurator_console.py&utm_term=top)
@@ -35,13 +35,13 @@ from fiftyone_devicedetection_examples.example_utils import ExampleUtils
 # for a fuller example.
 #
 # Required PyPi Dependencies:
-# - [fiftyone_devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
+# - [fiftyone_devicedetection_cloud](https://pypi.org/project/fiftyone-devicedetection-cloud/)
 class ConfiguratorConsole():
     def run(self, resource_key, logger, output):
 
         # Create a minimal pipeline to access the cloud engine
         # you only need one pipeline for multiple requests
-        pipeline = DeviceDetectionPipelineBuilder(
+        pipeline = DeviceDetectionCloudPipelineBuilder(
             resource_key = resource_key).add_logger(logger).build()
 
         # Get a flow data from the singleton pipeline for each detection
@@ -73,7 +73,11 @@ class ConfiguratorConsole():
         # Get the results.
         device = data.device
 
-        output(f"device.ismobile: {device.ismobile.value()}")
+        # Read through the helper so that a resource key without access to
+        # 'ismobile' reports the reason the cloud service gave, rather than
+        # stopping the example part way through.
+        output("device.ismobile: " +
+            f"{ExampleUtils.get_human_readable(device, 'ismobile')}")
 
 def main(argv):
     # Use the command line args to get the resource key if present.

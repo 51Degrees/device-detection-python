@@ -32,37 +32,120 @@ from fiftyone_devicedetection_examples.example_utils import ExampleUtils
 from fiftyone_devicedetection_examples.cloud.gettingstarted_console import GettingStartedConsole
 from fiftyone_devicedetection_examples.cloud.configurator_console import ConfiguratorConsole
 
+# Text that shows an example printed a programming fault rather than a
+# result. An example that reaches any of these is broken, however little of
+# the data the resource key is entitled to.
+FAULT_MARKERS = [
+    "Traceback",
+    "AttributeError",
+    "TypeError",
+    "KeyError",
+    "Unknown ()",
+    "Unknown (None)"
+]
+
+
 class DeviceDetectionExampleTests(unittest.TestCase):
 
-    # Init method - specify Resource Key to run examples here or 
-    # set a Resource Key in an environment variable called 'resource_key'.
+    # Init method - specify a resource key here, or set one in the
+    # environment variable named by ExampleUtils.RESOURCE_KEY_ENV_VAR.
     def setUp(self):
         self.resource_key = ExampleUtils.get_resource_key()
         self.logger = Logger()
 
         if not self.resource_key:
-            self.fail(
-                "ResourceKey must be specified in the setUp method" +
-                " or as an Environment variable")
+            # Skipping rather than passing, so a run without a key is not
+            # mistaken for a run that proved something. The message names
+            # the variable that was wanted.
+            self.skipTest(ExampleUtils.get_missing_resource_key_message())
+
+    def run_example(self, example):
+        """!
+        Run an example, collecting everything it writes through its output
+        callback, and fail if any of it reads as a programming fault.
+        """
+
+        lines = []
+        example(lines.append)
+        output = "\n".join(str(line) for line in lines)
+
+        self.assertGreater(len(lines), 0,
+            "The example produced no output at all")
+
+        for marker in FAULT_MARKERS:
+            self.assertNotIn(marker, output,
+                f"The example output contains '{marker}', which means it "
+                f"failed rather than reporting a result. Output was:\n"
+                f"{output}")
+
+        return output
+
+    def assert_device_lines_are_meaningful(self, output):
+        """!
+        Every device line the TAC and native model examples print must say
+        something useful. Either it names a device, or it says the property
+        has no value and gives the reason the cloud service supplied.
+        """
+
+        lines = [line for line in output.split("\n")
+                 if line.startswith("\t")]
+
+        self.assertGreater(len(lines), 0,
+            "The example listed no devices and gave no reason for it")
+
+        for line in lines:
+            self.assertNotEqual("", line.strip(), "A device line is empty")
 
     def test_cloud_getting_started_console(self):
         example = GettingStartedConsole()
         configFile = Path(inspect.getfile(example.__class__)).parent.resolve().joinpath("gettingstarted_console.json").read_text()
         config = json5.loads(configFile)
         ExampleUtils.set_resource_key_in_config(config, self.resource_key)
-        example.run(config, self.logger, print)
+
+        output = self.run_example(
+            lambda out: example.run(config, self.logger, out))
+
+        self.assertIn("Input values:", output)
+        self.assertIn("Mobile Device:", output)
+
     def test_cloud_nativemodellookup_console(self):
         example = NativeModelLookupConsole()
-        example.run(self.resource_key, self.logger, print)
+
+        output = self.run_example(
+            lambda out: example.run(self.resource_key, self.logger, out))
+
+        self.assertIn(
+            "Which devices are associated with the native model name "
+            "'SC-03L'?", output)
+        self.assert_device_lines_are_meaningful(output)
+
     def test_cloud_taclookup_console(self):
         example = TacLookupConsole()
         configFile = Path(inspect.getfile(example.__class__)).parent.resolve().joinpath("taclookup_console.json").read_text()
         config = json5.loads(configFile)
         ExampleUtils.set_resource_key_in_config(config, self.resource_key)
-        example.run(config, self.logger, print)
+
+        output = self.run_example(
+            lambda out: example.run(config, self.logger, out))
+
+        self.assertIn(
+            "Which devices are associated with the TAC '35925406'?", output)
+        self.assert_device_lines_are_meaningful(output)
+
     def test_cloud_metadata_console(self):
         example = MetaDataConsole()
-        example.run(self.resource_key, self.logger, print)
+
+        output = self.run_example(
+            lambda out: example.run(self.resource_key, self.logger, out))
+
+        self.assertIn("Accepted evidence keys:", output)
+        self.assertIn("Property - ", output)
+
     def test_cloud_configurator_console(self):
         example = ConfiguratorConsole()
-        example.run(self.resource_key, self.logger, print)
+
+        output = self.run_example(
+            lambda out: example.run(self.resource_key, self.logger, out))
+
+        self.assertIn("device.ismobile: ", output)
+        self.assertNotEqual("device.ismobile:", output.strip())

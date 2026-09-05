@@ -28,6 +28,40 @@ from fiftyone_pipeline_core.aspectproperty_value import AspectPropertyValue
 
 import json
 
+# The suffix the cloud service adds to a property name to carry the reason
+# that property has no value, for example "hardwarevendornullreason".
+NULL_REASON_SUFFIX = "nullreason"
+
+
+def _build_aspect_values(hardware):
+    """!
+    Build the aspect level property values from the "hardware" section of a
+    cloud response, pairing each null value with the reason the service gave
+    for it.
+
+    @type hardware: dict
+    @param hardware: the "hardware" section of the cloud response
+
+    @rtype dict
+    @return property name to AspectPropertyValue
+    """
+
+    values = {}
+
+    for key, value in hardware.items():
+        if key == "profiles" or key.endswith(NULL_REASON_SUFFIX):
+            continue
+
+        if value is None:
+            reason = hardware.get(key + NULL_REASON_SUFFIX)
+            values[key] = AspectPropertyValue(
+                no_value_message=reason if isinstance(reason, str) else None)
+        else:
+            values[key] = AspectPropertyValue(value=value)
+
+    return values
+
+
 class HardwareProfileCloud(CloudEngine):
     """!
     The hardware profile cloud engine
@@ -44,18 +78,40 @@ class HardwareProfileCloud(CloudEngine):
 
         cloud_data = json.loads(cloud_data)
 
-        # Loop over cloud_data.devices properties to check if they have a value
+        hardware = cloud_data.get("hardware") or {}
+
+        if not isinstance(hardware, dict):
+            hardware = {}
+
+        # Properties the resource key is not entitled to are returned by the
+        # cloud service at the aspect level rather than inside each profile,
+        # with a companion "<name>nullreason" saying why there is no value.
+        # Collect those so the reason can travel with every profile instead
+        # of being thrown away.
+        aspect_values = _build_aspect_values(hardware)
 
         devices = []
 
-        for profile in cloud_data["hardware"]["profiles"]:
+        for profile in hardware.get("profiles") or []:
             device = {}
             for property_key, property_value in profile.items():
                 device[property_key] = AspectPropertyValue(value=property_value)
 
+            # Add the properties the service could not supply, carrying the
+            # reason it gave, so a caller reading a profile gets an
+            # explanation rather than nothing at all.
+            for property_key, aspect_value in aspect_values.items():
+                if property_key not in device:
+                    device[property_key] = aspect_value
+
             devices.append(device)
 
-        data = AspectDataDictionary(self, {"profiles": devices})
+        # The aspect level values are exposed alongside the profiles so a
+        # caller with no matching profiles can still read the reason.
+        contents = dict(aspect_values)
+        contents["profiles"] = devices
+
+        data = AspectDataDictionary(self, contents)
 
         flowdata.set_element_data(data)
         
