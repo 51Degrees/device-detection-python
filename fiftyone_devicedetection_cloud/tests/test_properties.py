@@ -43,11 +43,41 @@ chrome_ua = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
 # TODO remove setheader properties from this list once UACH datafile is released.
 exclude_properties = ["setheaderbrowseraccept-ch", "setheaderplatformaccept-ch", "setheaderhardwareaccept-ch"]
 
-if "resource_key" in os.environ:
-    resource_key = os.environ["resource_key"]
-else:
-    raise Exception("To run the cloud tests, please set a valid 51Degrees "
-                    "cloud resource key as the resource_key environment variable.")
+# Resource key environment variables follow the 51Degrees convention, which
+# is that every one of them starts with "_51DEGREES_RESOURCE_KEY". The name
+# used before the convention was adopted is still read, so an existing setup
+# keeps working.
+RESOURCE_KEY_ENV_VAR = "_51DEGREES_RESOURCE_KEY"
+LEGACY_RESOURCE_KEY_ENV_VAR = "resource_key"
+
+resource_key = (os.environ.get(RESOURCE_KEY_ENV_VAR)
+                or os.environ.get(LEGACY_RESOURCE_KEY_ENV_VAR))
+
+if not resource_key:
+    # Skipping rather than raising, so a run without a key shows as skipped
+    # and names the variable, instead of turning into a collection error.
+    import pytest
+
+    pytest.skip(
+        "No resource key found, so the tests that call the cloud service "
+        f"cannot run. Set the environment variable '{RESOURCE_KEY_ENV_VAR}' "
+        f"(the older name '{LEGACY_RESOURCE_KEY_ENV_VAR}' is still read). "
+        "Create a resource key for free at "
+        "https://configure.51degrees.com?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_cloud-tests-test_properties.py&utm_term=resource-key-required",
+        allow_module_level=True)
+
+if not os.path.isfile(header_file_path):
+    # The property list comes from an asset the build fetches with a licence
+    # key. Without it these tests cannot run, so skip rather than turn a
+    # missing asset into a failure.
+    import pytest
+
+    pytest.skip(
+        f"The property list file '{header_file_path}' is not present, so "
+        "the property coverage tests cannot run. It is fetched by "
+        "ci/fetch-assets.ps1 when a device detection licence key is "
+        "available.",
+        allow_module_level=True)
 
 # Get Properties list
 properties_list = get_properties_from_header_file(header_file_path)

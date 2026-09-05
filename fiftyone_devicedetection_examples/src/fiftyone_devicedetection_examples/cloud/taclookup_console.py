@@ -85,7 +85,13 @@ class TacLookupConsole():
         # The 'hardware.profiles' object contains one or more devices.
         # This is the same interface used for standard device detection, so we have
         # access to all the same properties.
-        for device in result.profiles:
+        profiles = ExampleUtils.get_profiles(result)
+
+        if len(profiles) == 0:
+            output(ExampleUtils.get_no_profiles_message())
+            return
+
+        for device in profiles:
             vendor = ExampleUtils.get_human_readable(device, "hardwarevendor")
             name = ExampleUtils.get_human_readable(device, "hardwarename")
             model = ExampleUtils.get_human_readable(device, "hardwaremodel")

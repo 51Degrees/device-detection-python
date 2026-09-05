@@ -30,12 +30,12 @@
 # @include{doc} example-require-resourcekey.txt
 # 
 # Required PyPi Dependencies:
-# - [fiftyone_devicedetection](https://pypi.org/project/fiftyone-devicedetection/)
+# - [fiftyone_devicedetection_cloud](https://pypi.org/project/fiftyone-devicedetection-cloud/)
 # - [flask](https://pypi.org/project/flask/)
 # 
 # ## Overview
 # 
-# The `DeviceDetectionPipelineBuilder` class is used to create a Pipeline instance from the configuration
+# The `DeviceDetectionCloudPipelineBuilder` class is used to create a Pipeline instance from the configuration
 # that is supplied.
 # The fiftyone_pipeline_core.web module contains helpers which deal with
 # automatically populating evidence from a web request.
@@ -77,7 +77,7 @@
 from fiftyone_devicedetection_examples.example_utils import ExampleUtils
 from flask import Flask, request, render_template
 from flask.helpers import make_response
-from fiftyone_devicedetection.devicedetection_pipelinebuilder import DeviceDetectionPipelineBuilder
+from fiftyone_devicedetection_cloud.devicedetection_cloud_pipelinebuilder import DeviceDetectionCloudPipelineBuilder
 from fiftyone_pipeline_core.logger import Logger
 from fiftyone_pipeline_core.web import webevidence, set_response_header
 import json
@@ -113,7 +113,7 @@ class GettingStartedWeb():
         if cloud_endpoint:
             pipeline_settings["cloud_endpoint"] = cloud_endpoint
 
-        GettingStartedWeb.pipeline = DeviceDetectionPipelineBuilder(
+        GettingStartedWeb.pipeline = DeviceDetectionCloudPipelineBuilder(
             **pipeline_settings).add_logger(logger).build()
         
         return self

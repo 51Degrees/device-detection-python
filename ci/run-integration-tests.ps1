@@ -29,6 +29,12 @@ if ($env:GITHUB_JOB -eq "Test") {
     pip install $RepoName/fiftyone_devicedetection_examples || $(throw "pip install failed")
 }
 
+# Resource key environment variables follow the 51Degrees convention, which
+# is that every one of them starts with '_51DEGREES_RESOURCE_KEY'. The name
+# used before the convention was adopted is set by common-ci and is still
+# read as a fallback, so anything not yet moved over keeps working.
+$env:_51DEGREES_RESOURCE_KEY = $Keys.TestResourceKey
+
 ./python/run-integration-tests.ps1 -RepoName $RepoName -Packages $packages -Keys $Keys
 $status = $LASTEXITCODE
 
@@ -41,7 +47,7 @@ try {
         $py = $IsWindows ? ".venv/Scripts/python.exe" : ".venv/bin/python"
         & $py -m pip install -e .
         $env:PORT = 8097
-        $env:resource_key = $Keys.TestResourceKey
+        $env:_51DEGREES_RESOURCE_KEY = $Keys.TestResourceKey
         $env:cloud_endpoint = "https://cloud.51degrees.com/api/v4/"
         $example = & $py -m fiftyone_devicedetection_examples.cloud.gettingstarted_web 2>&1 &
     } finally { Pop-Location }
