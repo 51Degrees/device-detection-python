@@ -22,6 +22,7 @@
 
 import flask_unittest
 import os
+import re
 import tempfile
 import unittest
 from unittest import mock
@@ -50,6 +51,15 @@ class OnPremiseGettingStartedWebTests(flask_unittest.ClientTestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual("application/x-javascript", response.headers["Content-Type"])
         self.assertIn(b"fiftyoneDegreesManager", response.data)
+
+    # The script takes its sequence number from the SequenceElement. Without that
+    # element in config.json the script is rendered as 'var sequence=;', which
+    # does not parse, so the browser never defines 'fod'.
+    def test_onpremise_getting_started_web_core_js_has_sequence(self, client):
+        response = client.get('/51Degrees.core.js')
+        self.assertIsNone(
+            re.search(rb"sequence\s*=\s*;", response.data),
+            "the script has no sequence number, so it will not parse")
 
     # The page must load the script from that route rather than inline it.
     def test_onpremise_getting_started_web_references_core_js(self, client):
