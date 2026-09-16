@@ -99,6 +99,18 @@ function Test-Example([string]$Name, [string]$Module, [int]$Port) {
             return "the $Name example did not answer on $url (job state $($example.State))"
         }
 
+        # TEMPORARY DIAGNOSTIC
+        $ua = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36'
+        $diag = Join-Path $resultsDir "core-$Name.js"
+        Invoke-WebRequest -Uri "$url/51Degrees.core.js" -UserAgent $ua -OutFile $diag
+        Write-Host "DIAG $Name core.js length $((Get-Item $diag).Length)"
+        node --check $diag 2>&1 | Select-Object -First 15 | ForEach-Object { Write-Host "DIAG node: $_" }
+        Write-Host "DIAG node exit $LASTEXITCODE"
+        $text = Get-Content -Raw $diag
+        Write-Host "DIAG head: $($text.Substring(0, [Math]::Min(300, $text.Length)))"
+        $jsonPart = [regex]::Match($text, 'var json\s*=\s*(\{.*?\});').Groups[1].Value
+        Write-Host "DIAG json length $($jsonPart.Length)"
+        node -e "const fs=require('fs');const t=fs.readFileSync(process.argv[1],'utf8');const w={};const window=w;try{new Function('window','document','navigator','sessionStorage','localStorage',t)}catch(e){console.log('DIAG compile error',e.message)}" $diag 2>&1 | ForEach-Object { Write-Host $_ }
         $env:EXAMPLE_URL = $url
         # Output goes to the host, so that only a failure is returned.
         dotnet test selenium-api-tests -c Release --filter TestCategory=Contract `
