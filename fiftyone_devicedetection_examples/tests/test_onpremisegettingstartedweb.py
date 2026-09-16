@@ -21,7 +21,10 @@
 # *********************************************************************
 
 import flask_unittest
+import os
+import tempfile
 import unittest
+from unittest import mock
 from fiftyone_pipeline_core.logger import Logger
 from fiftyone_devicedetection_examples.example_utils import ExampleUtils
 from fiftyone_devicedetection_examples.onpremise.gettingstarted_web.app import GettingStartedWeb
@@ -38,3 +41,42 @@ class OnPremiseGettingStartedWebTests(flask_unittest.ClientTestCase):
     def test_onpremise_getting_started_web(self, client):
         response = client.get('/')
         self.assertEqual(200, response.status_code)
+
+    # The page references the client-side script by the '/51Degrees.core.js' name used
+    # by the web integrations in the other Pipeline APIs, so check that the route
+    # returns the bundle rather than, for example, falling through to the page.
+    def test_onpremise_getting_started_web_core_js(self, client):
+        response = client.get('/51Degrees.core.js')
+        self.assertEqual(200, response.status_code)
+        self.assertEqual("application/x-javascript", response.headers["Content-Type"])
+        self.assertIn(b"fiftyoneDegreesManager", response.data)
+
+    # The page must load the script from that route rather than inline it.
+    def test_onpremise_getting_started_web_references_core_js(self, client):
+        response = client.get('/')
+        self.assertIn(b'<script src="/51Degrees.core.js"></script>', response.data)
+
+
+class OnPremiseGettingStartedWebConfigTests(unittest.TestCase):
+
+    # A data file named in the environment replaces the one in config.json.
+    def test_data_file_from_environment(self):
+        with tempfile.NamedTemporaryFile(suffix=".hash", delete=False) as file:
+            path = file.name
+        try:
+            with mock.patch.dict(os.environ, {ExampleUtils.DATA_FILE_ENV_VAR: path}):
+                config = GettingStartedWeb.build_config()
+            self.assertEqual(
+                os.path.abspath(path),
+                ExampleUtils.get_data_file_from_config(config))
+        finally:
+            os.remove(path)
+
+    # A data file named in the environment that does not exist is reported by
+    # name, rather than the example silently falling back to config.json.
+    def test_missing_data_file_from_environment(self):
+        missing = os.path.join(tempfile.gettempdir(), "no-such-51degrees-file.hash")
+        with mock.patch.dict(os.environ, {ExampleUtils.DATA_FILE_ENV_VAR: missing}):
+            with self.assertRaises(Exception) as context:
+                GettingStartedWeb.build_config()
+        self.assertIn(ExampleUtils.DATA_FILE_ENV_VAR, str(context.exception))

@@ -46,6 +46,11 @@ class ExampleUtils:
 
     ENDPOINT_ENV_VAR = "cloud_endpoint"
 
+    # The environment variable an on-premise example reads the path of its
+    # device detection data file from, when one is given, in place of the
+    # file named in its configuration.
+    DATA_FILE_ENV_VAR = "51DEGREES_DD_PATH"
+
     @staticmethod
     def get_resource_key_from_config(config):
         key = ""
@@ -162,6 +167,10 @@ class ExampleUtils:
                 f"'{ExampleUtils.LEGACY_RESOURCE_KEY_ENV_VAR}' is still "
                 "read). Create a resource key for free at "
                 "https://configure.51degrees.com?utm_source=code&utm_medium=example&utm_campaign=device-detection-python&utm_content=fiftyone_devicedetection_examples-src-fiftyone_devicedetection_examples-example_utils.py&utm_term=resource-key-required")
+
+    @staticmethod
+    def get_data_file_path():
+        return ExampleUtils.__get_env_variable(ExampleUtils.DATA_FILE_ENV_VAR)
 
     @staticmethod
     def get_cloud_endpoint():
