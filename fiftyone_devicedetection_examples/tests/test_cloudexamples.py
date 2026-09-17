@@ -153,7 +153,6 @@ class DeviceDetectionExampleTests(unittest.TestCase):
         self.assertIn("device.ismobile: ", output)
         self.assertNotEqual("device.ismobile:", output.strip())
 
-
     def test_cloud_failuretomatch(self):
         """The failure to match example is a script rather than a class,
         so it is run as one. It is run with the current resource key
