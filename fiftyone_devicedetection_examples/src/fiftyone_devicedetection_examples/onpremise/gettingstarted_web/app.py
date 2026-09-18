@@ -99,8 +99,10 @@ class GettingStartedWeb():
         return self
 
     def run(self):
-        
-        GettingStartedWeb.app.run(port=5001)
+
+        # The port can be set with the PORT environment variable, as it can
+        # for the cloud example, so the example can run next to other services.
+        GettingStartedWeb.app.run(port=int(os.environ.get("PORT", 5001)))
 
     # First we make a JSON route that will be called from the client side and will return
     # a JSON encoded property database using any additional evidence provided by the client 
@@ -124,6 +126,36 @@ class GettingStartedWeb():
         # Return the JSON from the JSONBundler engine
 
         return json.dumps(flowdata.jsonbundler.json)
+
+    # Next we serve the client-side JavaScript from its own route. The other
+    # Pipeline APIs ship a web integration that intercepts '/51Degrees.core.js'
+    # for this, so the page can reference the script by that name. There is no
+    # such integration for Flask, so the example wires up the route itself.
+
+    @staticmethod
+    @app.route('/51Degrees.core.js')
+    def core_js():
+
+        # Create the flowdata object for the JavaScript route
+        flowdata = GettingStartedWeb.pipeline.create_flowdata()
+
+        # Add any information from the request (headers, cookies and additional
+        # client side provided information). Query parameters are included, so
+        # the per-request 'fod-js-enable-cookies' override is picked up here and
+        # applied by the JavaScriptBuilder engine.
+
+        flowdata.evidence.add_from_dict(webevidence(request))
+
+        # Process the flowdata
+
+        flowdata.process()
+
+        # Return the JavaScript from the JavaScriptBuilder engine
+
+        response = make_response(flowdata.javascriptbuilder.javascript)
+        response.headers["Content-Type"] = "application/x-javascript"
+
+        return response
 
     # In the main route we dynamically update the screen's device property display
     # using the above JSON route
@@ -182,6 +214,19 @@ class GettingStartedWeb():
         configFile = Path(__file__).resolve().parent.joinpath("config.json").read_text()
         config = json.loads(configFile)
 
+        # A data file named in the 51DEGREES_DD_PATH environment variable takes
+        # the place of the one in config.json. This lets the example run
+        # against a paid data file without editing the configuration.
+        envDataFile = ExampleUtils.get_data_file_path()
+        if envDataFile:
+            envDataFile = os.path.abspath(envDataFile)
+            if not os.path.exists(envDataFile):
+                raise Exception("The device detection data file " +
+                    f"'{envDataFile}' named in the environment variable " +
+                    f"'{ExampleUtils.DATA_FILE_ENV_VAR}' does not exist.")
+            ExampleUtils.set_data_file_in_config(config, envDataFile)
+            return config
+
         dataFile = ExampleUtils.get_data_file_from_config(config)
         foundDataFile = False
         if not dataFile:
@@ -203,7 +248,8 @@ class GettingStartedWeb():
                 f"'{dataFile}'. If using the lite file, then make sure the " +
                 "device-detection-data submodule has been updated by running " +
                 "`git submodule update --recursive`. Otherwise, ensure that the filename " +
-                "is correct in config.json.")
+                "is correct in config.json, or set the environment variable " +
+                f"'{ExampleUtils.DATA_FILE_ENV_VAR}' to the path of the data file.")
 
         return config
 
