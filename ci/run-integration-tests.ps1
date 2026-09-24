@@ -60,11 +60,12 @@ $env:EXAMPLE_LANG = 'python'
 
 # The examples run from their own virtual environment, created once here so a
 # running example never holds a file the second setup would need to replace.
+# .venv name is already taken by tox, so this venv uses another directory name.
 $examplesDir = (Resolve-Path "$PSScriptRoot/../fiftyone_devicedetection_examples").Path
-$py = Join-Path $examplesDir ($IsWindows ? ".venv/Scripts/python.exe" : ".venv/bin/python")
+$py = Join-Path $examplesDir ($IsWindows ? ".virtualenv/Scripts/python.exe" : ".virtualenv/bin/python")
 Push-Location $examplesDir
 try {
-    python3 -m venv .venv
+    python3 -m venv .virtualenv
     if ($LASTEXITCODE -ne 0) { throw "failed to create the examples virtual environment" }
     & $py -m pip install -e .
     if ($LASTEXITCODE -ne 0) { throw "failed to install the examples package" }
