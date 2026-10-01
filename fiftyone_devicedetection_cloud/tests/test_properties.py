@@ -147,9 +147,11 @@ class PropertyTests(unittest.TestCase):
             if(property in dd_property_dict and property not in exclude_properties):
                 dd_property_value = dd_property_dict[property]
 
-                value = dd_property_value.value()
-
                 self.assertIsNotNone(dd_property_value, "Property: " + property + " is not present in the results.")
-                self.assertTrue(is_same_type(value, expected_type),
-                                "Expected type for " + property + " is " + expected_type +
-                                " but actual type is " + get_value_type(value))
+                if dd_property_value.has_value():
+                    value = dd_property_value.value()
+                    self.assertTrue(is_same_type(value, expected_type),
+                                    "Expected type for " + property + " is " + expected_type +
+                                    " but actual type is " + get_value_type(value))
+                else:
+                    self.assertIsNotNone(dd_property_value.no_value_message())
