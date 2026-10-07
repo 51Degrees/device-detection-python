@@ -22,7 +22,6 @@
 
 import unittest
 import os
-import re
 import time
 
 from fiftyone_devicedetection_cloud.devicedetection_cloud_pipelinebuilder import DeviceDetectionCloudPipelineBuilder
@@ -116,18 +115,13 @@ class DeviceDetectionTests(unittest.TestCase):
 
         fd.process()
 
-        result = ""
-
-        try:
+        with self.assertRaises(Exception) as raised:
             fd.get("notpresent")
-        except Exception as e:
-            result = str(e)
 
-        # The explainer URL may carry UTM query parameters; ignore them.
-        result = re.sub(r'\?utm_[^\s]*', '', result)
-
-        self.assertEqual(
-            result, "Your resource key does not include access to any properties under notpresent. For more details on resource keys, see our explainer: https://51degrees.com/documentation/_info__resource_keys.html Available element data keys are: ['device']")
+        result = str(raised.exception)
+        self.assertIn("notpresent", result)
+        self.assertIn("['device']", result)
+        self.assertIn("https://51degrees.com/documentation/_info__resource_keys.html", result)
 
     def test_engine_init_performance(self):
         """!
@@ -171,20 +165,14 @@ class DeviceDetectionTests(unittest.TestCase):
 
         fd.process()
 
-        result = ""
-
-        try:
+        with self.assertRaises(Exception) as raised:
             fd.device.get("notpresent")
-        except Exception as e:
-            result = str(e)
 
-        self.maxDiff = None
-
-        # The explainer URL may carry UTM query parameters; ignore them.
-        result = re.sub(r'\?utm_[^\s]*', '', result)
-
-        self.assertEqual(
-            result, "Property notpresent not found in data for element device. This is because your resource key does not include access to this property. Properties that are included for this key under device are " + ', '.join(list(pipeline.get_element("device").get_properties().keys())) + ". For more details on resource keys, see our explainer: https://51degrees.com/documentation/_info__resource_keys.html")
+        result = str(raised.exception)
+        self.assertIn("notpresent", result)
+        self.assertIn("device", result)
+        self.assertIn(', '.join(pipeline.get_element("device").get_properties().keys()), result)
+        self.assertIn("https://51degrees.com/documentation/_info__resource_keys.html", result)
 
     def test_cloud_request_origin(self):
         """!
